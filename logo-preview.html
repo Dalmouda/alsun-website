@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<title>ألسُن — Logo</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;700;900&family=Cairo:wght@700;800;900&family=Tajawal:wght@700;800;900&family=Rubik:wght@700;800;900&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0F172A;
+    padding: 80px 60px;
+    display: flex; flex-direction: column; align-items: center; gap: 80px;
+  }
+  .label {
+    font-family: monospace; font-size: 10px; font-weight: 700;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: #1E3A5F; margin-bottom: 40px;
+  }
+  .row { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+  .section { width: 100%; max-width: 1000px; display: flex; flex-direction: column; align-items: center; }
+
+  .logo-text {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-weight: 900;
+    direction: rtl;
+    line-height: 1;
+  }
+</style>
+</head>
+<body>
+
+<svg style="position:absolute;width:0;height:0;overflow:hidden">
+  <defs>
+    <linearGradient id="jovi-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B7AD8"/>
+      <stop offset="50%" stop-color="#A896E4"/>
+      <stop offset="100%" stop-color="#C7B9F0"/>
+    </linearGradient>
+    <linearGradient id="indigo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A2060"/>
+      <stop offset="100%" stop-color="#6B5DB8"/>
+    </linearGradient>
+    <linearGradient id="apricot-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8905A"/>
+      <stop offset="100%" stop-color="#F5C59A"/>
+    </linearGradient>
+    <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="turbulence" baseFrequency="0.04 0.06" numOctaves="4" seed="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="blob" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="turbulence" baseFrequency="0.012" numOctaves="3" seed="5" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="blob-soft" x="-12%" y="-12%" width="124%" height="124%">
+      <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="4" seed="9" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ════════ 0 — JOVI-INSPIRED: Rounded, white on gradient ════════ -->
+<div class="section">
+  <div class="label">Jovi-style · rounded Arabic on gradient</div>
+  <div class="row" style="align-items:flex-end;">
+
+    <!-- Large app icon — purple like Jovi -->
+    <div style="width:260px;height:260px;background:linear-gradient(135deg,#8B7AD8 0%,#A896E4 50%,#C7B9F0 100%);border-radius:58px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(139,122,216,.45);position:relative;overflow:hidden;">
+      <!-- soft glow -->
+      <div style="position:absolute;top:-30%;left:-20%;width:80%;height:80%;background:radial-gradient(circle,rgba(255,255,255,.4),transparent 65%);pointer-events:none;"></div>
+      <!-- inner rounded "card" effect -->
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding-bottom:14px;">
+        <div style="font-family:'Tajawal',sans-serif;font-weight:900;font-size:120px;color:#fff;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+        <!-- heart-shaped accent replacing damma -->
+        <svg width="26" height="24" viewBox="0 0 26 24" style="position:absolute;top:12px;right:44%;">
+          <path d="M13 22 C 3 14, 3 4, 9 4 C 12 4, 13 7, 13 9 C 13 7, 14 4, 17 4 C 23 4, 23 14, 13 22 Z" fill="#fff"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Indigo gradient (our palette) -->
+    <div style="width:260px;height:260px;background:linear-gradient(135deg,#2A2060 0%,#4A3A90 50%,#6B5DB8 100%);border-radius:58px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(42,32,96,.45);position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-30%;left:-20%;width:80%;height:80%;background:radial-gradient(circle,rgba(232,144,90,.35),transparent 65%);pointer-events:none;"></div>
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding-bottom:14px;">
+        <div style="font-family:'Tajawal',sans-serif;font-weight:900;font-size:120px;color:#fff;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+        <svg width="26" height="24" viewBox="0 0 26 24" style="position:absolute;top:12px;right:44%;">
+          <path d="M13 22 C 3 14, 3 4, 9 4 C 12 4, 13 7, 13 9 C 13 7, 14 4, 17 4 C 23 4, 23 14, 13 22 Z" fill="#E8905A"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Apricot gradient -->
+    <div style="width:260px;height:260px;background:linear-gradient(135deg,#E8905A 0%,#F5C59A 100%);border-radius:58px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(232,144,90,.45);position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-30%;left:-20%;width:80%;height:80%;background:radial-gradient(circle,rgba(255,255,255,.45),transparent 65%);pointer-events:none;"></div>
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding-bottom:14px;">
+        <div style="font-family:'Tajawal',sans-serif;font-weight:900;font-size:120px;color:#2A2060;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+        <svg width="26" height="24" viewBox="0 0 26 24" style="position:absolute;top:12px;right:44%;">
+          <path d="M13 22 C 3 14, 3 4, 9 4 C 12 4, 13 7, 13 9 C 13 7, 14 4, 17 4 C 23 4, 23 14, 13 22 Z" fill="#2A2060"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Alternative with Cairo font -->
+  <div class="row" style="margin-top:60px;align-items:flex-end;">
+
+    <div style="width:180px;height:180px;background:linear-gradient(135deg,#8B7AD8,#C7B9F0);border-radius:42px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 40px rgba(139,122,216,.4);position:relative;">
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding-bottom:10px;">
+        <div style="font-family:'Cairo',sans-serif;font-weight:900;font-size:82px;color:#fff;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+        <svg width="18" height="17" viewBox="0 0 26 24" style="position:absolute;top:8px;right:44%;">
+          <path d="M13 22 C 3 14, 3 4, 9 4 C 12 4, 13 7, 13 9 C 13 7, 14 4, 17 4 C 23 4, 23 14, 13 22 Z" fill="#fff"/>
+        </svg>
+      </div>
+    </div>
+
+    <div style="width:120px;height:120px;background:linear-gradient(135deg,#8B7AD8,#C7B9F0);border-radius:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(139,122,216,.35);position:relative;">
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding-bottom:6px;">
+        <div style="font-family:'Tajawal',sans-serif;font-weight:900;font-size:56px;color:#fff;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+        <svg width="12" height="11" viewBox="0 0 26 24" style="position:absolute;top:5px;right:44%;">
+          <path d="M13 22 C 3 14, 3 4, 9 4 C 12 4, 13 7, 13 9 C 13 7, 14 4, 17 4 C 23 4, 23 14, 13 22 Z" fill="#fff"/>
+        </svg>
+      </div>
+    </div>
+
+    <div style="width:72px;height:72px;background:linear-gradient(135deg,#8B7AD8,#C7B9F0);border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(139,122,216,.3);position:relative;">
+      <div style="font-family:'Tajawal',sans-serif;font-weight:900;font-size:34px;color:#fff;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+    </div>
+
+  </div>
+
+  <!-- Logotype only, no background -->
+  <div class="row" style="margin-top:80px;">
+    <div style="padding:40px 60px;background:#1E1A3F;border-radius:32px;display:flex;align-items:center;justify-content:center;">
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding-bottom:14px;">
+        <div style="font-family:'Tajawal',sans-serif;font-weight:900;font-size:100px;color:#fff;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+        <svg width="22" height="20" viewBox="0 0 26 24" style="position:absolute;top:10px;right:44%;">
+          <path d="M13 22 C 3 14, 3 4, 9 4 C 12 4, 13 7, 13 9 C 13 7, 14 4, 17 4 C 23 4, 23 14, 13 22 Z" fill="#E8905A"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ 1 — BLOB BEHIND TEXT (like the website bubbles) ════════ -->
+<div class="section">
+  <div class="label">Blob · same as hero</div>
+  <div class="row">
+
+    <!-- Blue blob -->
+    <div style="position:relative;width:280px;height:200px;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;inset:0;filter:url(#blob);">
+        <div style="width:100%;height:100%;background:#3B82F6;border-radius:50%;"></div>
+      </div>
+      <div style="position:relative;z-index:1;filter:url(#ink);">
+        <div class="logo-text" style="font-size:82px;color:#fff;">ألسُن</div>
+      </div>
+    </div>
+
+    <!-- Amber blob -->
+    <div style="position:relative;width:280px;height:200px;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;inset:0;filter:url(#blob);">
+        <div style="width:100%;height:100%;background:#F59E0B;border-radius:50%;"></div>
+      </div>
+      <div style="position:relative;z-index:1;filter:url(#ink);">
+        <div class="logo-text" style="font-size:82px;color:#111827;">ألسُن</div>
+      </div>
+    </div>
+
+    <!-- Dark blob -->
+    <div style="position:relative;width:280px;height:200px;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;inset:0;filter:url(#blob);">
+        <div style="width:100%;height:100%;background:#111827;border-radius:50%;"></div>
+      </div>
+      <div style="position:relative;z-index:1;filter:url(#ink);">
+        <div class="logo-text" style="font-size:82px;color:#F59E0B;">ألسُن</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════ 2 — SQUARE ICON ════════ -->
+<div class="section">
+  <div class="label">App icon</div>
+  <div class="row" style="align-items:flex-end;">
+
+    <!-- Blue blob on white card -->
+    <div style="width:200px;height:200px;background:#fff;border-radius:44px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 48px rgba(0,0,0,.2);overflow:hidden;">
+      <div style="position:relative;width:180px;height:170px;display:flex;align-items:center;justify-content:center;">
+        <div style="position:absolute;inset:0;filter:url(#blob-soft);">
+          <div style="width:100%;height:100%;background:#3B82F6;border-radius:50%;"></div>
+        </div>
+        <div style="position:relative;z-index:1;filter:url(#ink);">
+          <div class="logo-text" style="font-size:74px;color:#fff;">ألسُن</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full blue icon -->
+    <div style="width:200px;height:200px;background:#3B82F6;border-radius:44px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 48px rgba(59,130,246,.4);overflow:hidden;">
+      <div style="position:relative;width:180px;height:170px;display:flex;align-items:center;justify-content:center;">
+        <div style="position:absolute;inset:0;filter:url(#blob-soft);">
+          <div style="width:100%;height:100%;background:rgba(0,0,0,.18);border-radius:50%;"></div>
+        </div>
+        <div style="position:relative;z-index:1;filter:url(#ink);">
+          <div class="logo-text" style="font-size:74px;color:#fff;">ألسُن</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Amber blob on dark icon -->
+    <div style="width:200px;height:200px;background:#111827;border-radius:44px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 48px rgba(0,0,0,.4);overflow:hidden;">
+      <div style="position:relative;width:180px;height:170px;display:flex;align-items:center;justify-content:center;">
+        <div style="position:absolute;inset:0;filter:url(#blob-soft);">
+          <div style="width:100%;height:100%;background:#F59E0B;border-radius:50%;"></div>
+        </div>
+        <div style="position:relative;z-index:1;filter:url(#ink);">
+          <div class="logo-text" style="font-size:74px;color:#111827;">ألسُن</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Small sizes -->
+    <div style="display:flex;flex-direction:column;gap:16px;align-items:center;">
+      <div style="width:120px;height:120px;background:#fff;border-radius:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,.16);overflow:hidden;">
+        <div style="position:relative;width:110px;height:100px;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;inset:0;filter:url(#blob-soft);"><div style="width:100%;height:100%;background:#3B82F6;border-radius:50%;"></div></div>
+          <div style="position:relative;z-index:1;"><div class="logo-text" style="font-size:44px;color:#fff;">ألسُن</div></div>
+        </div>
+      </div>
+      <div style="width:72px;height:72px;background:#fff;border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.14);overflow:hidden;">
+        <div style="position:relative;width:66px;height:60px;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;inset:0;filter:url(#blob-soft);"><div style="width:100%;height:100%;background:#3B82F6;border-radius:50%;"></div></div>
+          <div style="position:relative;z-index:1;"><div class="logo-text" style="font-size:27px;color:#fff;">ألسُن</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════ 3 — ON AMBER BG (website header use) ════════ -->
+<div class="section">
+  <div class="label">On amber · website nav &amp; hero</div>
+  <div style="background:#F59E0B;border-radius:28px;padding:48px 80px;display:flex;flex-direction:column;align-items:center;gap:40px;width:100%;">
+    <div class="row">
+      <!-- Large hero -->
+      <div style="position:relative;width:320px;height:220px;display:flex;align-items:center;justify-content:center;">
+        <div style="position:absolute;inset:0;filter:url(#blob);">
+          <div style="width:100%;height:100%;background:#3B82F6;border-radius:50%;"></div>
+        </div>
+        <div style="position:relative;z-index:1;filter:url(#ink);">
+          <div class="logo-text" style="font-size:90px;color:#fff;">ألسُن</div>
+        </div>
+      </div>
+      <!-- Nav pill on amber -->
+      <div style="background:#111827;border-radius:999px;padding:12px 28px;filter:url(#ink);">
+        <div class="logo-text" style="font-size:32px;color:#fff;">ألسُن</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
