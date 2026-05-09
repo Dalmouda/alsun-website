@@ -313,7 +313,12 @@
       0%,100% { transform: translateY(0); }
       50%      { transform: translateY(-4px); }
     }
-    .demo-phone-frame {
+    /* Bumped specificity past .phone-frame's hardcoded 288px so the demo
+       frame matches the (wider, responsive) demo phone inside it.
+       Without this the phone overflows its parent and — under body
+       direction:rtl — shifts visibly left of center. */
+    .phone-frame.demo-phone-frame {
+      width: min(340px, calc(100vw - 64px));
       /* no filter here — filter breaks overflow:hidden clipping */
     }
     /* Higher specificity than .phone (which sets width: 288px later in this
@@ -426,10 +431,6 @@
     .demo-hint {
       font-size: 12px; font-weight: 700; color: var(--ink2);
       opacity: 0.6; letter-spacing: 0.01em;
-    }
-    /* Mobile demo-phone-frame mirrors the responsive phone width above. */
-    @media (max-width: 420px) {
-      .demo-phone-frame { width: min(340px, calc(100vw - 64px)); }
     }
 
     /* ╔══════════════════════ PHONE MOCKUP (level scenes) ══════════════════════╗ */
