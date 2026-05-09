@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <title>ألسُن — Logo</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;700;900&family=Cairo:wght@700;800;900&family=Tajawal:wght@700;800;900&family=Rubik:wght@700;800;900&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -31,6 +31,19 @@
 
 <svg style="position:absolute;width:0;height:0;overflow:hidden">
   <defs>
+    <linearGradient id="jovi-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B7AD8"/>
+      <stop offset="50%" stop-color="#A896E4"/>
+      <stop offset="100%" stop-color="#C7B9F0"/>
+    </linearGradient>
+    <linearGradient id="indigo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A2060"/>
+      <stop offset="100%" stop-color="#6B5DB8"/>
+    </linearGradient>
+    <linearGradient id="apricot-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8905A"/>
+      <stop offset="100%" stop-color="#F5C59A"/>
+    </linearGradient>
     <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
       <feTurbulence type="turbulence" baseFrequency="0.04 0.06" numOctaves="4" seed="3" result="noise"/>
       <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
@@ -45,6 +58,89 @@
     </filter>
   </defs>
 </svg>
+
+<!-- ════════ 0 — JOVI-INSPIRED: Rounded, white on gradient ════════ -->
+<div class="section">
+  <div class="label">Jovi-style · rounded Arabic on gradient</div>
+  <div class="row" style="align-items:flex-end;">
+
+    <!-- Large app icon — purple like Jovi -->
+    <div style="width:260px;height:260px;background:linear-gradient(135deg,#8B7AD8 0%,#A896E4 50%,#C7B9F0 100%);border-radius:58px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(139,122,216,.45);position:relative;overflow:hidden;">
+      <!-- soft glow -->
+      <div style="position:absolute;top:-30%;left:-20%;width:80%;height:80%;background:radial-gradient(circle,rgba(255,255,255,.4),transparent 65%);pointer-events:none;"></div>
+      <!-- inner rounded "card" effect -->
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding-bottom:14px;">
+        <div style="font-family:'Tajawal',sans-serif;font-weight:900;font-size:120px;color:#fff;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+        <!-- heart-shaped accent replacing damma -->
+        <svg width="26" height="24" viewBox="0 0 26 24" style="position:absolute;top:12px;right:44%;">
+          <path d="M13 22 C 3 14, 3 4, 9 4 C 12 4, 13 7, 13 9 C 13 7, 14 4, 17 4 C 23 4, 23 14, 13 22 Z" fill="#fff"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Indigo gradient (our palette) -->
+    <div style="width:260px;height:260px;background:linear-gradient(135deg,#2A2060 0%,#4A3A90 50%,#6B5DB8 100%);border-radius:58px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(42,32,96,.45);position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-30%;left:-20%;width:80%;height:80%;background:radial-gradient(circle,rgba(232,144,90,.35),transparent 65%);pointer-events:none;"></div>
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding-bottom:14px;">
+        <div style="font-family:'Tajawal',sans-serif;font-weight:900;font-size:120px;color:#fff;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+        <svg width="26" height="24" viewBox="0 0 26 24" style="position:absolute;top:12px;right:44%;">
+          <path d="M13 22 C 3 14, 3 4, 9 4 C 12 4, 13 7, 13 9 C 13 7, 14 4, 17 4 C 23 4, 23 14, 13 22 Z" fill="#E8905A"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Apricot gradient -->
+    <div style="width:260px;height:260px;background:linear-gradient(135deg,#E8905A 0%,#F5C59A 100%);border-radius:58px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(232,144,90,.45);position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-30%;left:-20%;width:80%;height:80%;background:radial-gradient(circle,rgba(255,255,255,.45),transparent 65%);pointer-events:none;"></div>
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding-bottom:14px;">
+        <div style="font-family:'Tajawal',sans-serif;font-weight:900;font-size:120px;color:#2A2060;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+        <svg width="26" height="24" viewBox="0 0 26 24" style="position:absolute;top:12px;right:44%;">
+          <path d="M13 22 C 3 14, 3 4, 9 4 C 12 4, 13 7, 13 9 C 13 7, 14 4, 17 4 C 23 4, 23 14, 13 22 Z" fill="#2A2060"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Alternative with Cairo font -->
+  <div class="row" style="margin-top:60px;align-items:flex-end;">
+
+    <div style="width:180px;height:180px;background:linear-gradient(135deg,#8B7AD8,#C7B9F0);border-radius:42px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 40px rgba(139,122,216,.4);position:relative;">
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding-bottom:10px;">
+        <div style="font-family:'Cairo',sans-serif;font-weight:900;font-size:82px;color:#fff;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+        <svg width="18" height="17" viewBox="0 0 26 24" style="position:absolute;top:8px;right:44%;">
+          <path d="M13 22 C 3 14, 3 4, 9 4 C 12 4, 13 7, 13 9 C 13 7, 14 4, 17 4 C 23 4, 23 14, 13 22 Z" fill="#fff"/>
+        </svg>
+      </div>
+    </div>
+
+    <div style="width:120px;height:120px;background:linear-gradient(135deg,#8B7AD8,#C7B9F0);border-radius:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(139,122,216,.35);position:relative;">
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding-bottom:6px;">
+        <div style="font-family:'Tajawal',sans-serif;font-weight:900;font-size:56px;color:#fff;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+        <svg width="12" height="11" viewBox="0 0 26 24" style="position:absolute;top:5px;right:44%;">
+          <path d="M13 22 C 3 14, 3 4, 9 4 C 12 4, 13 7, 13 9 C 13 7, 14 4, 17 4 C 23 4, 23 14, 13 22 Z" fill="#fff"/>
+        </svg>
+      </div>
+    </div>
+
+    <div style="width:72px;height:72px;background:linear-gradient(135deg,#8B7AD8,#C7B9F0);border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(139,122,216,.3);position:relative;">
+      <div style="font-family:'Tajawal',sans-serif;font-weight:900;font-size:34px;color:#fff;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+    </div>
+
+  </div>
+
+  <!-- Logotype only, no background -->
+  <div class="row" style="margin-top:80px;">
+    <div style="padding:40px 60px;background:#1E1A3F;border-radius:32px;display:flex;align-items:center;justify-content:center;">
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding-bottom:14px;">
+        <div style="font-family:'Tajawal',sans-serif;font-weight:900;font-size:100px;color:#fff;line-height:.9;letter-spacing:-.04em;direction:rtl;">ألسُن</div>
+        <svg width="22" height="20" viewBox="0 0 26 24" style="position:absolute;top:10px;right:44%;">
+          <path d="M13 22 C 3 14, 3 4, 9 4 C 12 4, 13 7, 13 9 C 13 7, 14 4, 17 4 C 23 4, 23 14, 13 22 Z" fill="#E8905A"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ════════ 1 — BLOB BEHIND TEXT (like the website bubbles) ════════ -->
 <div class="section">

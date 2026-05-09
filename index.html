@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ألسُن — الألمانيّة بالعربيّة</title>
-  <meta name="description" content="ألسُن: تطبيقٌ للناطقين بالعربيّة لتعلّم الألمانيّة بالفصحى. للمهاجرين، للطلّاب، والباحثين عن عمل." />
+  <title>ألسُن — الألمانية بالعربية</title>
+  <meta name="description" content="ألسُن: تطبيق للناطقين بالعربية لتعلّم الألمانية بالفصحى، للمهاجرين والطلاب والباحثين عن عمل." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;700;900&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
@@ -12,28 +13,31 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      /* Indigo & Apricot palette */
-      --amber:     #E8905A;   /* apricot — hero warm */
-      --amberLt:   #FBF4EC;
-      --amberDk:   #C4622A;
-      --orange:    #E8905A;   /* apricot */
-      --orangeLt:  #FBF4EC;
-      --orangeDk:  #C4622A;
-      --blue:      #2A2060;   /* deep indigo — primary */
-      --blueLt:    #EDEAF8;
-      --blueDk:    #1A1440;
-      --green:     #3A8A70;   /* teal */
-      --greenLt:   #E6F4EF;
-      --greenDk:   #2A6652;
-      --cream:     #FBF4EC;
-      --creamDk:   #EDE4D4;
-      --ink:       #1A1440;
-      --ink2:      #2E2860;
-      --ink3:      #6B6490;
-      --ink4:      #A8A2C4;
-      --border:    #DDD8F0;
+      /* Brand palette — matches the app home-page top bar wordmark */
+      --indigo:    #6366F1;   /* primary brand mark — ألسُن */
+      --indigoLt:  #E0E7FF;
+      --indigoDk:  #4F46E5;
+      --amber:     #FBBF24;   /* warm accent — softened amber */
+      --amberLt:   #FEF3C7;
+      --amberDk:   #B45309;
+      --orange:    #FBBF24;   /* alias for accent */
+      --orangeLt:  #FEF3C7;
+      --orangeDk:  #B45309;
+      --blue:      #6366F1;   /* alias for indigo (legacy refs) */
+      --blueLt:    #E0E7FF;
+      --blueDk:    #4F46E5;
+      --green:     #10B981;   /* fresh emerald */
+      --greenLt:   #D1FAE5;
+      --greenDk:   #047857;
+      --cream:     #F8FAFC;   /* near-white surface */
+      --creamDk:   #E2E8F0;
+      --ink:       #0F172A;   /* slate-900 */
+      --ink2:      #1E293B;
+      --ink3:      #64748B;
+      --ink4:      #94A3B8;
+      --border:    #E2E8F0;
       --surface:   #FFFFFF;
-      --bg:        #F5F0FA;
+      --bg:        #F1F5F9;
     }
     html { scroll-behavior: smooth; }
     body {
@@ -44,7 +48,7 @@
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-    ::selection { background: var(--blue); color: var(--amber); }
+    ::selection { background: var(--indigo); color: var(--surface); }
 
     .svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
 
@@ -64,8 +68,19 @@
     }
     .nav > * { pointer-events: auto; }
     .nav-logo {
-      font-size: 22px; font-weight: 900; color: var(--ink);
-      text-decoration: none; letter-spacing: -.02em;
+      display: inline-flex; flex-direction: column; align-items: center;
+      text-decoration: none; line-height: 1;
+      gap: 2px;
+    }
+    .nav-logo .nl-ar {
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 26px; font-weight: 900; color: var(--indigo);
+      letter-spacing: -.01em;
+    }
+    .nav-logo .nl-lat {
+      font-family: 'Nunito', sans-serif;
+      font-size: 9px; font-weight: 900; color: var(--ink3);
+      letter-spacing: .22em;
     }
     .nav-dl {
       display: inline-flex; align-items: center; gap: 6px;
@@ -82,17 +97,17 @@
     /* ╔══════════════════════ SECTION WRAPPER ══════════════════════╗ */
     .scene {
       position: relative;
-      min-height: 100vh;
       padding: 110px 28px 80px;
       overflow: hidden;
       display: flex; flex-direction: column; align-items: center;
     }
-    .scene-amber   { background: var(--amber); }
-    .scene-blue    { background: var(--blue);   color: var(--surface); }
+    .scene-amber   { background: #FEF3C7; }   /* soft amber */
+    #hero.scene-amber { background: var(--surface); } /* clean white hero — matches the app */
+    .scene-blue    { background: var(--indigo); color: var(--surface); }
     .scene-orange  { background: var(--orange); color: var(--ink); }
     .scene-green   { background: var(--green);  color: var(--surface); }
     .scene-cream   { background: var(--cream); }
-    .scene-dark    { background: #4A3A90; color: var(--surface); }   /* mid indigo */
+    .scene-dark    { background: var(--indigoDk); color: var(--surface); }   /* deep indigo */
 
     .level-kicker {
       display: inline-flex; align-items: center; gap: 8px;
@@ -154,7 +169,7 @@
       z-index: 3;
     }
     .bubble.b2 {
-      background: #4A3A90;
+      background: var(--indigoDk);
       color: var(--surface);
       border-radius: 48% 52% 50% 50% / 55% 48% 52% 45%;
       transform: rotate(1deg) translateY(-14px);
@@ -316,6 +331,83 @@
       box-shadow: 8px 10px 0 rgba(0,0,0,.22);
     }
     .demo-phone::before { content: none; }
+
+    /* Mobile-only tap overlay on the demo phone */
+    .demo-tap-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      background: linear-gradient(180deg, rgba(15,23,42,.4) 0%, rgba(15,23,42,.85) 100%);
+      border-radius: inherit;
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 24px 40px;
+      gap: 14px;
+      text-align: center;
+      animation: demoOverlayPulse 2.4s ease-in-out infinite;
+    }
+    .demo-tap-overlay .to-icon {
+      width: 64px; height: 64px; border-radius: 999px;
+      background: var(--amber); color: var(--ink);
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      margin-bottom: 4px;
+    }
+    .demo-tap-overlay .to-icon i { font-size: 28px; }
+    .demo-tap-overlay .to-title {
+      color: #fff; font-family: 'Noto Naskh Arabic', serif;
+      font-size: 18px; font-weight: 900; line-height: 1.3;
+    }
+    .demo-tap-overlay .to-sub {
+      color: rgba(255,255,255,.75);
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 12px; font-weight: 700; line-height: 1.4;
+    }
+    @keyframes demoOverlayPulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: .88; }
+    }
+    /* Show overlay on mobile / touch devices only */
+    @media (max-width: 768px), (hover: none) and (pointer: coarse) {
+      .demo-tap-overlay { display: flex; }
+    }
+
+    /* Fullscreen demo overlay */
+    .demo-fullscreen {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #000;
+      display: none;
+      flex-direction: column;
+    }
+    .demo-fullscreen.open { display: flex; }
+    .demo-fullscreen-bar {
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: max(10px, env(safe-area-inset-top, 0px)) 16px 10px;
+      background: #1C1C1E; color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .demo-fullscreen-bar .fs-title {
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 15px; font-weight: 900;
+    }
+    .demo-fullscreen-bar .fs-close {
+      background: rgba(255,255,255,.12); color: #fff;
+      border: none; border-radius: 999px;
+      width: 36px; height: 36px;
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .demo-fullscreen-bar .fs-close i { font-size: 18px; }
+    .demo-fullscreen iframe {
+      flex: 1; width: 100%; height: 100%;
+      border: none; background: #1C1C1E;
+    }
+    body.demo-open { overflow: hidden; }
     .demo-phone iframe {
       position: absolute;
       inset: 0;
@@ -536,6 +628,72 @@
       .zoom-lens { width: 130px; height: 130px; }
     }
 
+    /* ╔══════════════════════ FEATURE GRID (icon-driven sections) ══════════════════════╗ */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      width: 100%;
+      margin-top: 10px;
+      position: relative; z-index: 5;
+    }
+    .fg-card {
+      background: var(--surface);
+      border: 2px solid var(--ink);
+      border-radius: 20px;
+      padding: 24px 22px;
+      box-shadow: 6px 6px 0 var(--ink);
+      text-align: right;
+      position: relative;
+    }
+    .fg-card .fg-icon {
+      width: 46px; height: 46px;
+      border-radius: 13px;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+    }
+    .fg-card .fg-icon i { font-size: 24px; }
+    .fg-card h4 {
+      font-size: 19px; font-weight: 900; color: var(--ink);
+      letter-spacing: -.01em; line-height: 1.3; margin-bottom: 8px;
+    }
+    .fg-card p {
+      font-size: 14px; color: var(--ink2); font-weight: 600;
+      line-height: 1.7;
+    }
+    .fg-card .fg-pill {
+      display: inline-block;
+      background: var(--blueLt); color: var(--blueDk);
+      border: 1px solid var(--border);
+      padding: 3px 10px; border-radius: 999px;
+      font-family: 'Nunito',sans-serif;
+      font-size: 10px; font-weight: 900; letter-spacing: .5px;
+      margin-top: 10px;
+    }
+    /* Mastery buckets visual — horizontal bar */
+    .mastery-row {
+      display: flex; gap: 10px; width: 100%;
+      max-width: 640px; margin: 30px 0 50px;
+      position: relative; z-index: 5;
+    }
+    .mastery-bucket {
+      flex: 1;
+      background: var(--surface);
+      border: 2px solid var(--ink);
+      border-radius: 16px;
+      padding: 18px 14px;
+      text-align: center;
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+    .mastery-bucket .mb-num {
+      font-family: 'Nunito',sans-serif; font-size: 32px; font-weight: 900;
+      color: var(--ink); line-height: 1; margin-bottom: 4px;
+    }
+    .mastery-bucket .mb-lbl {
+      font-size: 12px; color: var(--ink3); font-weight: 800;
+    }
+
     /* ╔══════════════════════ FINAL CTA / DOWNLOAD ══════════════════════╗ */
     .btn-dl {
       display: inline-flex; align-items: center; gap: 10px;
@@ -557,7 +715,19 @@
       background: var(--ink); color: rgba(255,255,255,.7);
       padding: 48px 28px 36px; text-align: center;
     }
-    footer .ft-logo { font-size: 26px; font-weight: 900; color: var(--amber); margin-bottom: 20px; display: inline-block; }
+    footer .ft-logo {
+      display: inline-flex; flex-direction: column; align-items: center;
+      gap: 4px; margin-bottom: 20px; line-height: 1;
+    }
+    footer .ft-logo .fl-ar {
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 30px; font-weight: 900; color: #A5B4FC;
+    }
+    footer .ft-logo .fl-lat {
+      font-family: 'Nunito', sans-serif;
+      font-size: 11px; font-weight: 900; color: rgba(255,255,255,.5);
+      letter-spacing: .3em;
+    }
     footer .ft-links { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
     footer .ft-links a { color: rgba(255,255,255,.75); text-decoration: none; font-size: 14px; font-weight: 700; transition: color .15s; }
     footer .ft-links a:hover { color: var(--amber); }
@@ -620,67 +790,30 @@
 
 <!-- ═══════════════ NAV ═══════════════ -->
 <nav class="nav">
-  <a href="#hero" class="nav-logo">ألسُن</a>
+  <a href="#hero" class="nav-logo" aria-label="ألسُن — Alsun">
+    <span class="nl-ar">ألسُن</span>
+    <span class="nl-lat">ALSUN</span>
+  </a>
   <a href="#download" class="nav-dl"><i class="ph-bold ph-download-simple"></i>حمّل التطبيق</a>
 </nav>
 
 <!-- ═══════════════ HERO — Level 0 (amber) ═══════════════ -->
 <section class="scene scene-amber grain" id="hero">
   <!-- Floating illustrations -->
-  <div class="float" style="top:14%; right:5%; transform:rotate(-8deg);">
-    <svg width="120" height="95" viewBox="0 0 120 95">
-      <g filter="url(#rough-soft)">
-        <rect x="6" y="18" width="90" height="65" rx="4" fill="#FBF4EC" stroke="#111827" stroke-width="3"/>
-        <path d="M16 28 L22 34 L16 40" stroke="#C4622A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <line x1="30" y1="32" x2="85" y2="32" stroke="#C4622A" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="16" y1="50" x2="85" y2="50" stroke="#111827" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="16" y1="58" x2="75" y2="58" stroke="#111827" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="16" y1="66" x2="60" y2="66" stroke="#111827" stroke-width="1.5" stroke-linecap="round"/>
-        <rect x="35" y="0" width="70" height="50" rx="4" fill="#4A3A90" stroke="#111827" stroke-width="3" transform="rotate(8 70 25)"/>
-        <text x="75" y="30" font-family="Nunito" font-size="14" font-weight="900" fill="#fff" text-anchor="middle" transform="rotate(8 75 30)">das Haus</text>
-      </g>
-    </svg>
-  </div>
+  
 
-  <div class="float" style="top:22%; left:4%; transform:rotate(-14deg);">
-    <svg width="140" height="50" viewBox="0 0 140 50">
-      <g filter="url(#rough-soft)">
-        <polygon points="10,25 28,12 28,38" fill="#111827" stroke="#111827" stroke-width="2"/>
-        <polygon points="28,12 28,38 125,38 125,12" fill="#E8905A" stroke="#111827" stroke-width="3"/>
-        <rect x="125" y="12" width="8" height="26" fill="#C4622A" stroke="#111827" stroke-width="3"/>
-      </g>
-    </svg>
-  </div>
+  
 
-  <div class="float" style="bottom:14%; left:6%; transform:rotate(8deg);">
-    <svg width="90" height="90" viewBox="0 0 90 90">
-      <g filter="url(#rough-soft)">
-        <circle cx="45" cy="45" r="38" fill="#C4622A" stroke="#111827" stroke-width="3"/>
-        <circle cx="45" cy="45" r="30" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="3,3"/>
-        <text x="45" y="53" font-family="Nunito" font-size="22" font-weight="900" fill="#fff" text-anchor="middle">A2</text>
-      </g>
-    </svg>
-  </div>
+  
 
-  <div class="float" style="bottom:16%; right:4%; transform:rotate(12deg);">
-    <svg width="110" height="110" viewBox="0 0 110 110">
-      <g filter="url(#rough-soft)">
-        <rect x="10" y="75" width="85" height="22" rx="2" fill="#C4622A" stroke="#111827" stroke-width="3"/>
-        <rect x="15" y="52" width="85" height="22" rx="2" fill="#3A8A70" stroke="#111827" stroke-width="3"/>
-        <rect x="8" y="29" width="85" height="22" rx="2" fill="#4A3A90" stroke="#111827" stroke-width="3"/>
-        <text x="50" y="44" font-family="Nunito" font-size="10" font-weight="900" fill="#fff" text-anchor="middle">A1</text>
-        <text x="57" y="67" font-family="Nunito" font-size="10" font-weight="900" fill="#fff" text-anchor="middle">A2</text>
-        <text x="52" y="90" font-family="Nunito" font-size="10" font-weight="900" fill="#fff" text-anchor="middle">B1</text>
-      </g>
-    </svg>
-  </div>
+  
 
   <div class="hero-bubbles">
-    <div class="bubble b1">الألمانيّة</div>
-    <div class="bubble b2">بالعربيّة</div>
+    <div class="bubble b1">الألمانية</div>
+    <div class="bubble b2">بالعربية</div>
   </div>
 
-  <p class="lede">تطبيقُ iOS يُعلّم الناطقين بالعربيّة الألمانيّةَ بالفصحى، بلا وسيط.</p>
+  <p class="lede">تعلّم الألمانية بالعربية، لا عبر الإنجليزية.</p>
 
   <!-- ═══ INTERACTIVE DEMO PHONE ═══ -->
   <div class="demo-phone-wrap">
@@ -689,110 +822,121 @@
         <iframe
           id="demoFrame"
           src="demo/index.html"
-          title="ألسُن — نسخة تجريبيّة"
+          title="ألسُن — نسخة تجريبية"
           loading="lazy"
           allow="autoplay"
         ></iframe>
+        <button type="button" class="demo-tap-overlay" id="openDemoBtn" aria-label="جرّب التطبيق">
+          <div class="to-icon"><i class="ph-fill ph-hand-tap"></i></div>
+          <div class="to-title">جرّب التطبيق على هاتفك</div>
+          <div class="to-sub">اضغط لفتح النسخة التجريبية بحجم الشاشة</div>
+        </button>
       </div>
     </div>
-    <p class="demo-hint">٣ تمارين مجّانيّة — ثمَّ نزِّل التطبيق لتتابع رحلتك</p>
+    <p class="demo-hint">٣ تمارين مجانية، ثم نزّل التطبيق لتكمل رحلتك</p>
   </div>
 </section>
 
-<!-- ═══════════════ LEVEL 1 — HOME (blue) ═══════════════ -->
-<section class="scene scene-blue grain" id="level-1">
-  <div class="float" style="top:12%; right:10%; transform:rotate(-10deg);">
-    <svg width="100" height="100" viewBox="0 0 100 100">
-      <g filter="url(#rough-soft)">
-        <path d="M50 12 C 30 30, 25 60, 50 82 C 75 60, 70 30, 50 12 Z" fill="#E8905A" stroke="#111827" stroke-width="3"/>
-        <path d="M42 58 C 40 48, 50 42, 55 50 C 60 45, 65 55, 60 62 C 56 66, 48 64, 42 58 Z" fill="#C4622A" stroke="#111827" stroke-width="2"/>
-      </g>
-    </svg>
+<!-- Fullscreen demo overlay (moved outside hero to avoid overflow clipping) -->
+<div class="demo-fullscreen" id="demoFullscreen" aria-hidden="true">
+  <div class="demo-fullscreen-bar">
+    <div class="fs-title">ألسُن — نسخة تجريبية</div>
+    <button type="button" class="fs-close" id="closeDemoBtn" aria-label="إغلاق">
+      <i class="ph-bold ph-x"></i>
+    </button>
   </div>
-  <div class="float" style="bottom:18%; left:8%; transform:rotate(14deg);">
-    <svg width="120" height="60" viewBox="0 0 120 60">
-      <g filter="url(#rough-soft)">
-        <rect x="8" y="14" width="104" height="34" rx="6" fill="#C4622A" stroke="#111827" stroke-width="3"/>
-        <text x="60" y="36" font-family="Nunito" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">١٢ يوماً متتالية</text>
-      </g>
-    </svg>
-  </div>
+  <iframe id="demoFullscreenFrame" src="about:blank" title="ألسُن — نسخة تجريبيّة" allow="autoplay"></iframe>
+</div>
 
-  <div class="level-kicker"><i class="ph-fill ph-house"></i>الشاشة الرئيسيّة</div>
-  <h2 class="headline">تعلَّم دون وسيط.</h2>
-  <p class="lede">معظمُ التطبيقات تُعلِّمك الألمانيّةَ عبر الإنجليزيّة. ألسُن يُخاطبك مباشرةً بالعربيّة الفصحى: شرحٌ، قواعد، وتمارين، كلُّها بلغتك أنت.</p>
+<!-- ═══════════════ PLACEMENT TEST (cream) ═══════════════ -->
+<section class="scene scene-cream grain" id="placement">
+  <div class="level-kicker"><i class="ph-fill ph-test-tube"></i>اختبار تحديد المستوى</div>
+  <h2 class="headline">ابدأ من حيث أنت،<br/>لا من الصفر.</h2>
+  <p class="lede">قبل أول درس، اختبار قصير يحدّد مستواك. إن تجاوزت A1 تبدأ من موضعك، وإن كنت مبتدئاً نبدأ معك بهدوء.</p>
 
   <div class="feature-showcase" data-showcase>
     <div class="feature-panel">
-      <span class="fp-kicker"><i class="ph-fill ph-flame"></i>سلسلتُك اليوميّة</span>
-      <h3>كلُّ شيءٍ في لمحةٍ واحدة</h3>
-      <p class="fp-intro">تبدأ يومك فترى أين أنت: سلسلتُك، كلماتُك، وما ينتظرك للمراجعة، ثمَّ زرٌّ واحدٌ يأخذُك إلى جلسةِ اليوم.</p>
+      <span class="fp-kicker"><i class="ph-fill ph-target"></i>تدرّج ذكي</span>
+      <h3>كل سؤال يبني على سابقه</h3>
+      <p class="fp-intro">يبدأ الاختبار بالأساسيات، ثم يتدرّج إلى الضمائر والحالات. كل سؤال يقوم على ما أتقنته قبله.</p>
       <ul>
-        <li><i class="ph-fill ph-flame"></i>عدّادُ الأيّامِ المتتالية لإبقائك على العهد</li>
-        <li><i class="ph-fill ph-books"></i>إجماليُّ كلماتِك المُتقَنة إلى الآن</li>
-        <li><i class="ph-fill ph-clock-counter-clockwise"></i>شارةٌ تُخبرك كم كلمةً تنتظرك للمراجعة</li>
-        <li><i class="ph-fill ph-play-circle"></i>زرُّ «جلسةُ اليوم» يبدأ مراجعتك في الحال</li>
+        <li><i class="ph-fill ph-stairs"></i>أسئلة متدرّجة من A1 إلى B1</li>
+        <li><i class="ph-fill ph-check-circle"></i>يتوقف حين يحدّد مستواك بدقة</li>
+        <li><i class="ph-fill ph-map-pin"></i>تبدأ من النقطة المناسبة لك</li>
+        <li><i class="ph-fill ph-arrow-counter-clockwise"></i>أعد الاختبار لاحقاً من الإعدادات</li>
       </ul>
     </div>
     <div class="phone-wrap">
       <div class="phone-frame">
         <div class="phone">
-          <img class="screenshot" src="screenshots/dark/01-home.png" alt="الشاشة الرئيسيّة"/>
+          <img class="screenshot" src="screenshots/dark/08-placement.png?v=1777027250" alt="اختبار تحديد المستوى"/>
         </div>
       </div>
-      <div class="zoom-ring" style="top:22%; left:12%; width:76%; height:18%;"></div>
-      <div class="zoom-lens" style="top:6%; left:-70px;
-           background-image:url('screenshots/dark/01-home.png');
-           background-position:50% 28%;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ LEVEL 1 — HOME (blue) ═══════════════ -->
+<section class="scene scene-blue grain" id="level-1">
+  
+  
+
+  <div class="level-kicker"><i class="ph-fill ph-house"></i>الشاشة الرئيسية</div>
+  <h2 class="headline">لغة جديدة،<br/>بعقل عربي.</h2>
+  <p class="lede">حين تفتح التطبيق ترى كل ما يهمك في لمحة: سلسلتك، كلماتك المتقنة، وجلسة اليوم بانتظارك.</p>
+
+  <div class="feature-showcase" data-showcase>
+    <div class="feature-panel">
+      <span class="fp-kicker"><i class="ph-fill ph-flame"></i>سلسلتك اليومية</span>
+      <h3>كل شيء أمامك بوضوح</h3>
+      <p class="fp-intro">تعرف أين وصلت، وما ينتظرك للمراجعة، وتبدأ جلستك بزر واحد.</p>
+      <ul>
+        <li><i class="ph-fill ph-flame"></i>عداد الأيام المتتالية يحفظ استمراريتك</li>
+        <li><i class="ph-fill ph-books"></i>إجمالي كلماتك المتقنة حتى الآن</li>
+        <li><i class="ph-fill ph-clock-counter-clockwise"></i>مؤشر يبيّن ما ينتظر المراجعة</li>
+        <li><i class="ph-fill ph-play-circle"></i>زر جلسة اليوم يبدأ فوراً</li>
+      </ul>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone-frame">
+        <div class="phone">
+          <img class="screenshot" src="screenshots/dark/01-home.png?v=1777027250" alt="الشاشة الرئيسيّة"/>
+        </div>
+      </div>
+      
+      
     </div>
   </div>
 </section>
 
 <!-- ═══════════════ LEVEL 1.5 — JOURNEY (رحلة التعلّم) (cream) ═══════════════ -->
 <section class="scene scene-cream grain" id="level-journey">
-  <div class="float" style="top:14%; left:8%; transform:rotate(-10deg);">
-    <svg width="120" height="120" viewBox="0 0 120 120">
-      <g filter="url(#rough-soft)">
-        <path d="M20 100 Q 30 60, 60 70 Q 90 80, 100 30" stroke="#C4622A" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="3 8"/>
-        <circle cx="20" cy="100" r="8" fill="#3A8A70" stroke="#111827" stroke-width="2.5"/>
-        <circle cx="60" cy="70" r="8" fill="#E8905A" stroke="#111827" stroke-width="2.5"/>
-        <circle cx="100" cy="30" r="10" fill="#4A3A90" stroke="#111827" stroke-width="2.5"/>
-      </g>
-    </svg>
-  </div>
-  <div class="float" style="bottom:16%; right:10%; transform:rotate(8deg);">
-    <svg width="100" height="80" viewBox="0 0 100 80">
-      <g filter="url(#rough-soft)">
-        <path d="M50 8 L 58 30 L 82 32 L 64 46 L 70 70 L 50 58 L 30 70 L 36 46 L 18 32 L 42 30 Z" fill="#E8905A" stroke="#111827" stroke-width="3"/>
-      </g>
-    </svg>
-  </div>
+  
+  
 
-  <div class="level-kicker"><i class="ph-fill ph-path"></i>رحلةُ التعلّم</div>
-  <h2 class="headline">أنتَ تمشي،<br/>نحنُ نُضيءُ الطريق.</h2>
-  <p class="lede">كلُّ مرحلةٍ مبنيّةٌ على ما قبلها وعلى مدى معرفتك بها. أنماطٌ قواعديّةٌ ومفرداتٌ وجملٌ حقيقيّة.</p>
+  <div class="level-kicker"><i class="ph-fill ph-path"></i>رحلة التعلّم</div>
+  <h2 class="headline">أنت تمضي،<br/>ونحن نضيء الطريق.</h2>
+  <p class="lede">مسار متدرّج من A1 إلى B1، خطوة تبني على ما قبلها، بلا تشتت ولا قرارات مربكة.</p>
 
   <div class="feature-showcase" data-showcase>
     <div class="phone-wrap">
       <div class="phone-frame">
         <div class="phone">
-          <img class="screenshot" src="screenshots/dark/02-home-journey.png" alt="رحلة التعلّم"/>
+          <img class="screenshot" src="screenshots/dark/02-home-journey.png?v=1777027250" alt="رحلة التعلّم"/>
         </div>
       </div>
-      <div class="zoom-ring" style="top:40%; left:10%; width:80%; height:26%;"></div>
-      <div class="zoom-lens" style="top:30%; right:-70px;
-           background-image:url('screenshots/dark/02-home-journey.png');
-           background-position:50% 55%;"></div>
+      
+      
     </div>
     <div class="feature-panel">
-      <span class="fp-kicker" style="background:var(--orangeLt); color:var(--orangeDk);"><i class="ph-fill ph-path"></i>مسارٌ واحدٌ واضح</span>
-      <h3>محطّةٌ تلو محطّة، بلا تشتّت</h3>
-      <p class="fp-intro">تعرف دائماً ما الذي ينبغي أن تتعلّمه بعد ذلك. المحطّةُ التالية مُضاءة، وما قبلها مُنجَز، وما بعدها ينتظر.</p>
+      <span class="fp-kicker" style="background:var(--orangeLt); color:var(--orangeDk);"><i class="ph-fill ph-path"></i>مسار واحد واضح</span>
+      <h3>محطة بعد محطة</h3>
+      <p class="fp-intro">تعرف دائماً ما الخطوة التالية. ما أنجزته خلفك، وما يلي ينتظرك.</p>
       <ul>
-        <li><i class="ph-fill ph-check-circle"></i>محطّاتٌ منجَزةٌ خلفك، ترى تقدُّمك يتراكم</li>
-        <li><i class="ph-fill ph-target"></i>محطّةٌ نشطةٌ أمامك، بلا قرارٍ أو اختيار</li>
-        <li><i class="ph-fill ph-lock-simple"></i>محطّاتٌ قادمةٌ تُفتَحُ حين تستحقّها</li>
-        <li><i class="ph-fill ph-graduation-cap"></i>من A1 إلى B1 بالتدرّجِ والإتقان</li>
+        <li><i class="ph-fill ph-check-circle"></i>محطات منجزة تُظهر تقدّمك</li>
+        <li><i class="ph-fill ph-target"></i>محطة نشطة أمامك بلا تردّد</li>
+        <li><i class="ph-fill ph-lock-simple"></i>محطات جديدة تُفتح مع تقدّمك</li>
+        <li><i class="ph-fill ph-graduation-cap"></i>من A1 إلى B1 بتدرّج وإتقان</li>
       </ul>
     </div>
   </div>
@@ -800,100 +944,93 @@
 
 <!-- ═══════════════ LEVEL 2 — GRAMMAR (قواعد) (dark amber) ═══════════════ -->
 <section class="scene scene-dark grain" id="level-2">
-  <div class="float" style="top:14%; left:8%; transform:rotate(-12deg);">
-    <svg width="130" height="90" viewBox="0 0 130 90">
-      <g filter="url(#rough-soft)">
-        <rect x="8" y="10" width="114" height="70" rx="5" fill="#FBF4EC" stroke="#111827" stroke-width="3"/>
-        <line x1="20" y1="26" x2="110" y2="26" stroke="#4A3A90" stroke-width="3" stroke-linecap="round"/>
-        <line x1="20" y1="40" x2="95" y2="40" stroke="#111827" stroke-width="2" stroke-linecap="round"/>
-        <line x1="20" y1="52" x2="105" y2="52" stroke="#111827" stroke-width="2" stroke-linecap="round"/>
-        <line x1="20" y1="64" x2="80" y2="64" stroke="#111827" stroke-width="2" stroke-linecap="round"/>
-      </g>
-    </svg>
-  </div>
-  <div class="float" style="bottom:16%; right:10%; transform:rotate(10deg);">
-    <svg width="90" height="90" viewBox="0 0 90 90">
-      <g filter="url(#rough-soft)">
-        <circle cx="45" cy="45" r="38" fill="#4A3A90" stroke="#111827" stroke-width="3"/>
-        <text x="45" y="56" font-family="Nunito" font-size="22" font-weight="900" fill="#fff" text-anchor="middle">A1</text>
-      </g>
-    </svg>
-  </div>
+  
+  
 
-  <div class="level-kicker"><i class="ph-fill ph-book-open-text"></i>دروسُ القواعد</div>
-  <h2 class="headline">قواعدُ النحو<br/>من مصادر موثوقة.</h2>
-  <p class="lede">منهجٌ متدرّجٌ من A1 فأعلى، مستمَدٌّ من كتبٍ ومراجعَ معتمَدة: أدواتُ التعريف، الضمائر، المضارع، النفي، الأسئلة، الحالات، كلُّها بالعربيّة الفصحى.</p>
+  <div class="level-kicker"><i class="ph-fill ph-book-open-text"></i>دروس القواعد</div>
+  <h2 class="headline">قواعد اللغة،<br/>من مصادر موثوقة.</h2>
+  <p class="lede">ليست قواعد معزولة، بل دروس متسلسلة من أدوات التعريف إلى الحالات والأفعال، بشرح عربي وتمارين بعد كل درس.</p>
 
   <div class="feature-showcase" data-showcase>
     <div class="feature-panel">
-      <span class="fp-kicker" style="background:var(--blueLt); color:var(--blueDk);"><i class="ph-fill ph-book-open-text"></i>درسٌ مبنيٌّ على كتاب</span>
-      <h3>كلُّ درسٍ له شرحٌ وتمارين</h3>
-      <p class="fp-intro">ليست قائمةَ قواعد صمّاء، بل دروسٌ مرقّمةٌ تأخذُك من أدوات التعريف إلى الحالاتِ والأفعالِ المنفصلة، وكلُّها بالعربيّة الفصحى.</p>
+      <span class="fp-kicker" style="background:var(--blueLt); color:var(--blueDk);"><i class="ph-fill ph-book-open-text"></i>درس مبني على كتاب</span>
+      <h3>شرح وتمارين في كل درس</h3>
+      <p class="fp-intro">دروس مرتّبة تقودك خطوة خطوة، وكلها بالعربية الفصحى.</p>
       <ul>
-        <li><i class="ph-fill ph-list-numbers"></i>دروسٌ مرتّبةٌ من الأسهلِ إلى الأصعب</li>
-        <li><i class="ph-fill ph-translate"></i>شرحٌ عربيٌّ فصيحٌ لكلّ قاعدة</li>
-        <li><i class="ph-fill ph-note-pencil"></i>تمارينُ ترجمةٍ وتمييزٍ في نهاية الدرس</li>
-        <li><i class="ph-fill ph-bookmark-simple"></i>احفظ أيَّ جملةٍ في مكتبتك للمراجعة</li>
+        <li><i class="ph-fill ph-list-numbers"></i>دروس مرتبة من الأسهل للأعمق</li>
+        <li><i class="ph-fill ph-translate"></i>شرح عربي واضح لكل قاعدة</li>
+        <li><i class="ph-fill ph-note-pencil"></i>تمارين بعد كل درس للتثبيت</li>
+        <li><i class="ph-fill ph-bookmark-simple"></i>احفظ الجمل في مكتبتك للمراجعة</li>
       </ul>
     </div>
     <div class="phone-wrap">
       <div class="phone-frame">
         <div class="phone">
-          <img class="screenshot" src="screenshots/dark/03-grammar.png" alt="قواعد النحو"/>
+          <img class="screenshot" src="screenshots/dark/03-grammar.png?v=1777027250" alt="قواعد النحو"/>
         </div>
       </div>
-      <div class="zoom-ring" style="top:18%; left:10%; width:80%; height:14%;"></div>
-      <div class="zoom-lens" style="top:10%; left:-70px;
-           background-image:url('screenshots/dark/03-grammar.png');
-           background-position:50% 22%;"></div>
+      
+      
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRONUNCIATION GUIDE (cream) ═══════════════ -->
+<section class="scene scene-cream grain" id="pronunciation">
+  <div class="level-kicker"><i class="ph-fill ph-speaker-high"></i>دليل النطق</div>
+  <h2 class="headline">كل حرف ألماني،<br/>بلسان عربي.</h2>
+  <p class="lede">أصوات ألمانية كثيرة لا تمر عبر الإنجليزية. لهذا يشرح التطبيق النطق بالعربية مع أمثلة مسموعة.</p>
+
+  <div class="feature-showcase" data-showcase>
+    <div class="phone-wrap">
+      <div class="phone-frame">
+        <div class="phone">
+          <img class="screenshot" src="screenshots/dark/09-pronunciation.png?v=1777027250" alt="دليل النطق"/>
+        </div>
+      </div>
+    </div>
+    <div class="feature-panel">
+      <span class="fp-kicker"><i class="ph-fill ph-speaker-high"></i>دليل كامل للنطق</span>
+      <h3>كل حرف مشروح بالعربية</h3>
+      <p class="fp-intro">جدول نطق يوضّح الأصوات الألمانية بمقابلات عربية وأمثلة مسموعة.</p>
+      <ul>
+        <li><i class="ph-fill ph-letter-circle-z"></i>Z تُنطق تس — Zeit تُقرأ تسايت</li>
+        <li><i class="ph-fill ph-letter-circle-j"></i>J مثل الياء — ja تُقرأ يا</li>
+        <li><i class="ph-fill ph-quotes"></i>-ig في النهاية تُنطق إيش</li>
+        <li><i class="ph-fill ph-speaker-simple-high"></i>استمع لكل حرف ومثاله بلمسة</li>
+      </ul>
     </div>
   </div>
 </section>
 
 <!-- ═══════════════ LEVEL 3 — SMART SESSION (جلسة ذكية) (orange) ═══════════════ -->
 <section class="scene scene-orange grain" id="level-3">
-  <div class="float" style="top:14%; right:8%; transform:rotate(-10deg);">
-    <svg width="110" height="60" viewBox="0 0 110 60">
-      <g filter="url(#rough-soft)">
-        <rect x="8" y="14" width="94" height="34" rx="6" fill="#111827" stroke="#111827" stroke-width="3"/>
-        <text x="55" y="36" font-family="Nunito" font-size="16" font-weight="900" fill="#fff" text-anchor="middle">machen</text>
-      </g>
-    </svg>
-  </div>
-  <div class="float" style="bottom:16%; left:8%; transform:rotate(10deg);">
-    <svg width="90" height="90" viewBox="0 0 90 90">
-      <g filter="url(#rough-soft)">
-        <circle cx="45" cy="45" r="35" fill="#3A8A70" stroke="#111827" stroke-width="3"/>
-        <path d="M30 45 L 42 56 L 62 34" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      </g>
-    </svg>
-  </div>
+  
+  
 
-  <div class="level-kicker"><i class="ph-fill ph-cards-three"></i>جلسةٌ ذكيّة</div>
-  <h2 class="headline">جلسةٌ ذكيّة،<br/>كلَّ يومٍ بلسانك.</h2>
-  <p class="lede">التطبيقُ يختارُ لك ما ينبغي أن تراجعه، ويتتبّعُ أخطاءك ليعيد اختبارك فيها لاحقاً.</p>
+  <div class="level-kicker"><i class="ph-fill ph-cards-three"></i>جلسة ذكية</div>
+  <h2 class="headline">جلسة ذكية،<br/>كل يوم.</h2>
+  <p class="lede">التطبيق يتذكّر ما أتقنته وما تعثّرت فيه. أخطاؤك تعود إليك حتى تترسّخ المعرفة.</p>
 
   <div class="feature-showcase" data-showcase>
     <div class="phone-wrap">
       <div class="phone-frame">
         <div class="phone">
-          <img class="screenshot" src="screenshots/dark/06-session.png" alt="جلسة ذكية"/>
+          <img class="screenshot" src="screenshots/dark/06-session.png?v=1777027250" alt="جلسة ذكية"/>
         </div>
       </div>
-      <div class="zoom-ring" style="top:55%; left:8%; width:84%; height:34%;"></div>
-      <div class="zoom-lens" style="top:48%; right:-70px;
-           background-image:url('screenshots/dark/06-session.png');
-           background-position:50% 72%;"></div>
+      
+      
     </div>
     <div class="feature-panel">
-      <span class="fp-kicker" style="background:var(--orangeLt); color:var(--orangeDk);"><i class="ph-fill ph-cards-three"></i>أربعةُ خيارات</span>
-      <h3>اِختَر التّرجمةَ الصحيحة</h3>
-      <p class="fp-intro">تُعرَضُ عليك الجملةُ الألمانيّة، فتختارُ ترجمتها بالعربيّة من بين أربعة خيارات. ما تُخطئ فيه يعودُ إليك في جلسةٍ قادمة، حتّى يَرسخ.</p>
+      <span class="fp-kicker" style="background:var(--orangeLt); color:var(--orangeDk);"><i class="ph-fill ph-cards-three"></i>أربعة خيارات</span>
+      <h3>اختر الترجمة الصحيحة</h3>
+      <p class="fp-intro">ترى الجملة بالألمانية وتختار معناها من أربعة خيارات. ما تخطئ فيه يعود للمراجعة تلقائياً.</p>
       <ul>
-        <li><i class="ph-fill ph-check"></i>أربعةُ خياراتٍ واضحةٍ بالعربيّة الفصحى</li>
-        <li><i class="ph-fill ph-arrow-counter-clockwise"></i>أخطاؤك تُحفَظ وتعودُ للمراجعة تلقائيّاً</li>
-        <li><i class="ph-fill ph-speaker-high"></i>استماعٌ للنطق الألمانيّ الصحيح</li>
-        <li><i class="ph-fill ph-bookmark-simple"></i>احفظ الجملةَ في مكتبتك بلمسةٍ واحدة</li>
+        <li><i class="ph-fill ph-check"></i>خيارات واضحة بالعربية الفصحى</li>
+        <li><i class="ph-fill ph-arrow-counter-clockwise"></i>أخطاؤك تعود للمراجعة تلقائياً</li>
+        <li><i class="ph-fill ph-speaker-high"></i>استمع للنطق الألماني الصحيح</li>
+        <li><i class="ph-fill ph-bookmark-simple"></i>احفظ الجملة بلمسة واحدة</li>
       </ul>
     </div>
   </div>
@@ -901,93 +1038,88 @@
 
 <!-- ═══════════════ LEVEL 4 — LIBRARY (مراجعاتي) (green) ═══════════════ -->
 <section class="scene scene-green grain" id="level-4">
-  <div class="float" style="top:12%; right:8%; transform:rotate(-8deg);">
-    <svg width="110" height="110" viewBox="0 0 110 110">
-      <g filter="url(#rough-soft)">
-        <rect x="15" y="20" width="80" height="80" rx="6" fill="#4A3A90" stroke="#111827" stroke-width="3"/>
-        <rect x="8" y="12" width="80" height="80" rx="6" fill="#E8905A" stroke="#111827" stroke-width="3"/>
-        <line x1="20" y1="30" x2="75" y2="30" stroke="#111827" stroke-width="2.5"/>
-        <line x1="20" y1="45" x2="70" y2="45" stroke="#111827" stroke-width="2.5"/>
-        <line x1="20" y1="60" x2="68" y2="60" stroke="#111827" stroke-width="2.5"/>
-        <line x1="20" y1="75" x2="60" y2="75" stroke="#111827" stroke-width="2.5"/>
-      </g>
-    </svg>
-  </div>
-  <div class="float" style="bottom:14%; left:8%; transform:rotate(14deg);">
-    <svg width="100" height="80" viewBox="0 0 100 80">
-      <g filter="url(#rough-soft)">
-        <path d="M20 50 Q 10 20, 35 22 Q 45 8, 60 18 Q 85 12, 85 35 Q 95 45, 80 55 L 30 55 Q 15 58, 20 50 Z" fill="#fff" stroke="#111827" stroke-width="3"/>
-        <path d="M40 40 L 48 48 L 62 32" stroke="#3A8A70" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      </g>
-    </svg>
-  </div>
+  
+  
 
-  <div class="level-kicker"><i class="ph-fill ph-books"></i>مكتبتُك الشّخصيّة</div>
-  <h2 class="headline">مراجعاتُك،<br/>مكتبتُك الخاصّة للكلمات، الجمل والتمارين.</h2>
-  <p class="lede">احفظ أيَّ كلمةٍ أو جملةٍ أو تمرينٍ تصادفه، وتدرّب عليها لاحقاً. وأضِف كلمةً بنفسك، يتّصل ألسُن بالإنترنت ليتحقّقَ منها ويُنزِّل أمثلةً في سياقها.</p>
+  <div class="level-kicker"><i class="ph-fill ph-books"></i>مكتبتك الشخصية</div>
+  <h2 class="headline">مكتبة كلماتك،<br/>كما تريدها.</h2>
+  <p class="lede">احفظ ما يلفت انتباهك من كلمات وجمل، وأضف كلماتك الخاصة مع ترجمتها وأمثلتها في السياق.</p>
 
   <div class="feature-showcase" data-showcase>
     <div class="feature-panel">
-      <span class="fp-kicker" style="background:var(--greenLt); color:var(--greenDk);"><i class="ph-fill ph-books"></i>مكتبتُك الشّخصيّة</span>
-      <h3>ثلاثُ خاناتٍ، كلُّ ما جمعتَه بلسانك</h3>
-      <p class="fp-intro">جُملٌ محفوظة، تمارينُ محفوظة، وكلماتٌ أضفتَها بنفسك. وكلُّ ما تكتبه يُتحقَّقُ منه عبر الإنترنت، وتُنزَّلُ أمثلتُه الحيّةُ في سياقها.</p>
+      <span class="fp-kicker" style="background:var(--greenLt); color:var(--greenDk);"><i class="ph-fill ph-books"></i>مكتبتك الشخصية</span>
+      <h3>كل ما جمعته في مكان واحد</h3>
+      <p class="fp-intro">جمل محفوظة، تمارين محفوظة، وكلمات تضيفها بنفسك مع أمثلة حيّة في سياقها.</p>
       <ul>
-        <li><i class="ph-fill ph-quotes"></i>جُملٌ محفوظةٌ من دروسِك وجلساتِك</li>
-        <li><i class="ph-fill ph-exam"></i>تمارينُ محفوظةٌ للعودة إليها لاحقاً</li>
-        <li><i class="ph-fill ph-plus-circle"></i>أضِف كلمةً ألمانيّةً بنفسك، نتحقّقُ ونُنزِّل الأمثلة</li>
-        <li><i class="ph-fill ph-wifi-high"></i>اتّصالٌ بالإنترنت للتحقّق وتنزيل السّياق</li>
+        <li><i class="ph-fill ph-quotes"></i>جمل محفوظة من الدروس والجلسات</li>
+        <li><i class="ph-fill ph-exam"></i>تمارين محفوظة للعودة إليها</li>
+        <li><i class="ph-fill ph-plus-circle"></i>أضف كلماتك ونستخرج أمثلتها</li>
+        <li><i class="ph-fill ph-wifi-high"></i>تحقق وسياقات عبر الإنترنت</li>
       </ul>
     </div>
     <div class="phone-wrap">
       <div class="phone-frame">
         <div class="phone">
-          <img class="screenshot" src="screenshots/dark/04-library.png" alt="مراجعاتي"/>
+          <img class="screenshot" src="screenshots/dark/04-library.png?v=1777027250" alt="مراجعاتي"/>
         </div>
       </div>
-      <div class="zoom-ring" style="top:14%; left:6%; width:88%; height:20%;"></div>
-      <div class="zoom-lens" style="top:6%; left:-70px;
-           background-image:url('screenshots/dark/04-library.png');
-           background-position:50% 18%;"></div>
+      
+      
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PROGRESS DASHBOARD — تقدمي (dark) ═══════════════ -->
+<section class="scene scene-dark grain" id="progress">
+  <div class="level-kicker"><i class="ph-fill ph-chart-bar"></i>تقدّمي</div>
+  <h2 class="headline">لوحة واحدة،<br/>ترى فيها كل شيء.</h2>
+  <p class="lede">مستواك، تقدّمك، ودقتك في المهارات الأربع. أرقام مبنية على أدائك الفعلي.</p>
+
+  <div class="feature-showcase" data-showcase>
+    <div class="feature-panel">
+      <span class="fp-kicker" style="background:rgba(232,144,90,.2); color:var(--amber);"><i class="ph-fill ph-chart-bar"></i>المهارات الأربع</span>
+      <h3>أرقام نابعة من أدائك</h3>
+      <p class="fp-intro">تابع مستواك وتقدّمك في الدروس ودقّتك في القراءة والكتابة والاستماع والتحدث.</p>
+      <ul>
+        <li><i class="ph-fill ph-medal"></i>مستوى CEFR محسوب من إتقانك</li>
+        <li><i class="ph-fill ph-book-open"></i>قراءة: دقتك في الفهم</li>
+        <li><i class="ph-fill ph-pen-nib"></i>كتابة: دقتك في الترجمة والترتيب</li>
+        <li><i class="ph-fill ph-ear"></i>استماع: ما فهمته من الجمل</li>
+        <li><i class="ph-fill ph-microphone"></i>تحدث: قرب نطقك من النموذج</li>
+      </ul>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone-frame">
+        <div class="phone">
+          <img class="screenshot" src="screenshots/dark/10-progress.png?v=1777027250" alt="تقدّمي — لوحة المهارات"/>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══════════════ PRICING (cream) ═══════════════ -->
 <section class="scene scene-cream grain" id="pricing">
-  <div class="float" style="top:14%; right:10%; transform:rotate(-10deg);">
-    <svg width="100" height="100" viewBox="0 0 100 100">
-      <g filter="url(#rough-soft)">
-        <path d="M20 10 L 70 10 L 90 40 L 50 88 L 10 40 Z" fill="#E8905A" stroke="#111827" stroke-width="3"/>
-        <circle cx="60" cy="30" r="6" fill="#fff" stroke="#111827" stroke-width="2"/>
-      </g>
-    </svg>
-  </div>
-  <div class="float" style="bottom:12%; left:10%; transform:rotate(12deg);">
-    <svg width="90" height="90" viewBox="0 0 90 90">
-      <g filter="url(#rough-soft)">
-        <circle cx="45" cy="45" r="38" fill="#4A3A90" stroke="#111827" stroke-width="3"/>
-        <text x="45" y="56" font-family="Nunito" font-size="28" font-weight="900" fill="#fff" text-anchor="middle">$</text>
-      </g>
-    </svg>
-  </div>
+  
+  
 
   <div class="level-kicker"><i class="ph-bold ph-tag"></i>الاشتراك</div>
-  <h2 class="headline">سعرٌ واحدٌ شهريّ،<br/>بلا إعلانات، بلا مستويات.</h2>
-  <p class="lede">كلُّ ميزةٍ في ألسُن متاحةٌ لك طوال فترة الاشتراك. دون شراءاتٍ داخليّة، ودون مفاجآت.</p>
+  <h2 class="headline">سعر واحد،<br/>يكفي.</h2>
+  <p class="lede">اشتراك شهري ثابت، بلا إعلانات ولا طبقات مدفوعة. كل شيء مفتوح من اليوم الأول.</p>
 
   <div class="pricing-card">
-    <span class="tier-pill">الاشتراك الشهريّ</span>
+    <span class="tier-pill">الاشتراك الشهري</span>
     <div class="price">
       <span class="num">٤٫٩٩$</span>
       <span class="per">/ شهريّاً</span>
     </div>
     <ul>
-      <li><i class="ph-fill ph-check-circle"></i>كلُّ الدروس والتمارين بالفصحى</li>
-      <li><i class="ph-fill ph-check-circle"></i>مكتبةٌ شخصيّة: حفظ الكلمات والأسئلة</li>
-      <li><i class="ph-fill ph-check-circle"></i>إضافةُ كلماتٍ بتحقّقٍ تلقائيٍّ عبر الإنترنت</li>
-      <li><i class="ph-fill ph-check-circle"></i>تنزيلُ جُملٍ وأمثلةٍ في سياقها</li>
-      <li><i class="ph-fill ph-check-circle"></i>درجةُ CEFR من إتقانك الفعليّ</li>
-      <li><i class="ph-fill ph-check-circle"></i>تحديثاتٌ مستمرّة، دون إعلانات</li>
+      <li><i class="ph-fill ph-check-circle"></i>جميع الدروس والتمارين بالفصحى</li>
+      <li><i class="ph-fill ph-check-circle"></i>مكتبة شخصية لحفظ الكلمات والأسئلة</li>
+      <li><i class="ph-fill ph-check-circle"></i>إضافة كلمات بتحقق تلقائي</li>
+      <li><i class="ph-fill ph-check-circle"></i>أمثلة حيّة في سياقها</li>
+      <li><i class="ph-fill ph-check-circle"></i>مستوى CEFR مبني على إتقانك</li>
+      <li><i class="ph-fill ph-check-circle"></i>تحديثات مستمرة بلا إعلانات</li>
     </ul>
     <a href="#download" class="btn-dl" style="width:100%;justify-content:center;box-shadow:4px 4px 0 var(--orange);">
       <i class="ph-bold ph-download-simple" style="font-size:20px;"></i>
@@ -998,25 +1130,11 @@
 
 <!-- ═══════════════ FINAL CTA ═══════════════ -->
 <section class="scene scene-amber grain" id="download">
-  <div class="float" style="top:16%; left:12%; transform:rotate(-18deg);">
-    <svg width="100" height="100" viewBox="0 0 100 100">
-      <g filter="url(#rough-soft)">
-        <circle cx="50" cy="50" r="40" fill="#C4622A" stroke="#111827" stroke-width="3"/>
-        <text x="50" y="60" font-family="Nunito" font-size="32" font-weight="900" fill="#fff" text-anchor="middle">!</text>
-      </g>
-    </svg>
-  </div>
-  <div class="float" style="bottom:20%; right:14%; transform:rotate(16deg);">
-    <svg width="120" height="80" viewBox="0 0 120 80">
-      <g filter="url(#rough-soft)">
-        <path d="M10 40 C 30 10, 90 10, 110 40 C 90 70, 30 70, 10 40 Z" fill="#4A3A90" stroke="#111827" stroke-width="3"/>
-        <text x="60" y="48" font-family="Nunito" font-size="16" font-weight="900" fill="#fff" text-anchor="middle">Los!</text>
-      </g>
-    </svg>
-  </div>
+  
+  
 
-  <div class="level-kicker"><i class="ph-bold ph-flag-pennant"></i>جاهزٌ للبدء</div>
-  <h2 class="headline">حمّل ألسُن الآن.<br/><span style="color:var(--blue);">عشرُ دقائقَ يوميّاً تكفي.</span></h2>
+  <div class="level-kicker"><i class="ph-bold ph-flag-pennant"></i>جاهز للبدء</div>
+  <h2 class="headline">حمّل ألسُن الآن.<br/><span style="color:var(--blue);">وابدأ بلسانك.</span></h2>
 
   <a href="#" class="btn-dl">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -1026,109 +1144,19 @@
 
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
-  <div class="ft-logo">ألسُن</div>
+  <div class="ft-logo">
+    <span class="fl-ar">ألسُن</span>
+    <span class="fl-lat">ALSUN</span>
+  </div>
   <div class="ft-links">
-    <a href="privacy.html">سياسة الخصوصيّة</a>
+    <a href="privacy.html">سياسة الخصوصية</a>
     <a href="support.html">الدعم والمساعدة</a>
-    <a href="mailto:support@alsun.app">تواصل معنا</a>
+    <a href="mailto:support@alsunapp.com">تواصل معنا</a>
   </div>
   <div class="ft-copy">© ٢٠٢٥ ألسُن · جميع الحقوق محفوظة</div>
 </footer>
 
-<!-- ═══════════════ CAROUSEL SCRIPT ═══════════════ -->
 <script>
-(function(){
-  const slides = [
-    { file: 'dark/01-home.png',         cap: 'الرئيسيّة'       },
-    { file: 'dark/02-home-journey.png', cap: 'رحلةُ التعلّم'   },
-    { file: 'dark/03-grammar.png',      cap: 'قواعدُ النحو'    },
-    { file: 'dark/06-session.png',      cap: 'جلسةٌ ذكيّة'     },
-    { file: 'dark/04-library.png',      cap: 'مراجعاتي'        },
-    { file: 'dark/05-library-scroll.png',cap: 'مكتبةُ الكلمات' },
-    { file: 'dark/07-settings.png',     cap: 'الإعدادات'        }
-  ];
-
-  const track = document.getElementById('carouselTrack');
-  const dotsEl = document.getElementById('carouselDots');
-  let current = Math.floor(slides.length / 2);
-
-  slides.forEach((s, i) => {
-    const item = document.createElement('div');
-    item.className = 'carousel-item';
-    item.innerHTML = `
-      <div class="phone-mini">
-        <img src="screenshots/${s.file}" alt="${s.cap}"/>
-      </div>
-      <div class="cap-wrap"><div class="cap">${s.cap}</div></div>
-    `;
-    item.addEventListener('click', () => { current = i; render(); });
-    track.appendChild(item);
-
-    const d = document.createElement('div');
-    d.className = 'carousel-dot';
-    d.addEventListener('click', () => { current = i; render(); });
-    dotsEl.appendChild(d);
-  });
-
-  const items = track.querySelectorAll('.carousel-item');
-  const dots  = dotsEl.querySelectorAll('.carousel-dot');
-
-  function render() {
-    items.forEach((el, i) => {
-      const offset = i - current;
-      const abs = Math.abs(offset);
-      const stepAngle = 16;
-      const radiusX   = 170;
-      const radiusY   = 35;
-      const angle     = offset * stepAngle;
-      const x         = offset * radiusX;
-      const y         = Math.pow(abs, 1.4) * radiusY * 0.65;
-      const scale     = Math.max(0.6, 1 - abs * 0.14);
-      const opacity   = Math.max(0.22, 1 - abs * 0.28);
-      const z         = 100 - abs;
-
-      el.style.transform = `translate(calc(-50% + ${x}px), ${y}px) rotate(${angle}deg) scale(${scale})`;
-      el.style.opacity = opacity;
-      el.style.zIndex = z;
-      el.style.filter = abs > 0 ? `blur(${Math.min(abs * 0.7, 2)}px)` : 'none';
-    });
-    dots.forEach((d, i) => d.classList.toggle('active', i === current));
-  }
-
-  function next() { current = Math.min(current + 1, slides.length - 1); render(); }
-  function prev() { current = Math.max(current - 1, 0); render(); }
-
-  document.getElementById('nextBtn').addEventListener('click', next);
-  document.getElementById('prevBtn').addEventListener('click', prev);
-
-  // Touch swipe
-  const carousel = document.getElementById('carousel');
-  let startX = null;
-  carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
-  carousel.addEventListener('touchend', e => {
-    if (startX == null) return;
-    const dx = e.changedTouches[0].clientX - startX;
-    if (Math.abs(dx) > 40) { if (dx < 0) next(); else prev(); }
-    startX = null;
-  });
-  // Mouse drag
-  let mouseDown = false, mStart = 0;
-  carousel.addEventListener('mousedown', e => { mouseDown = true; mStart = e.clientX; });
-  window.addEventListener('mouseup', e => {
-    if (!mouseDown) return;
-    const dx = e.clientX - mStart;
-    if (Math.abs(dx) > 40) { if (dx < 0) next(); else prev(); }
-    mouseDown = false;
-  });
-  // Keyboard
-  window.addEventListener('keydown', e => {
-    if (e.key === 'ArrowLeft') next();
-    else if (e.key === 'ArrowRight') prev();
-  });
-
-  render();
-})();
-
 /* ═══ Feature showcase — activate on scroll ═══ */
 (function () {
   const showcases = document.querySelectorAll('[data-showcase]');
@@ -1148,8 +1176,38 @@
         }
       }
     });
-  }, { threshold: 0.35, rootMargin: '0px 0px -10% 0px' });
+  }, { threshold: 0.15, rootMargin: '0px 0px 0px 0px' });
   showcases.forEach(s => io.observe(s));
+})();
+
+/* ═══ Demo fullscreen overlay ═══ */
+(function () {
+  const openBtn = document.getElementById('openDemoBtn');
+  const closeBtn = document.getElementById('closeDemoBtn');
+  const overlay = document.getElementById('demoFullscreen');
+  const fsFrame = document.getElementById('demoFullscreenFrame');
+  if (!openBtn || !overlay) return;
+
+  function openDemo() {
+    fsFrame.src = 'demo/index.html';
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('demo-open');
+  }
+  function closeDemo() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('demo-open');
+    // Clear iframe to stop audio/state and reset on next open
+    setTimeout(() => { fsFrame.src = 'about:blank'; }, 300);
+  }
+
+  openBtn.addEventListener('click', openDemo);
+  closeBtn && closeBtn.addEventListener('click', closeDemo);
+  // Close with Escape
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeDemo();
+  });
 })();
 
 /* ═══ Demo phone — stop shaking on interaction ═══ */

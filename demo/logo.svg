@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="ألسُن">
+  <!-- Brand wordmark for Alsun (ألسُن).
+       Aesthetic cue: Routledge "Grammar Workbooks" cover —
+       charcoal ground, olive angular arrows, bold white type. -->
+  <defs>
+    <clipPath id="frame"><rect width="640" height="360"/></clipPath>
+  </defs>
+  <g clip-path="url(#frame)">
+    <!-- Charcoal ground -->
+    <rect width="640" height="360" fill="#1A1A1A"/>
+
+    <!-- Olive arrow converging from the right edge, inspired by
+         the cover's inward-pointing triangle. -->
+    <path d="M640,0 L640,360 L420,180 Z" fill="#B5B06A"/>
+    <path d="M640,0 L420,180 L520,0 Z" fill="#1A1A1A"/>
+
+    <!-- Stacked chevron ticks echoing the cover's small arrows -->
+    <g fill="#B5B06A">
+      <path d="M598,28 l22,0 l-11,16 Z"/>
+      <path d="M598,52 l22,0 l-11,16 Z"/>
+      <path d="M598,76 l22,0 l-11,16 Z"/>
+    </g>
+
+    <!-- Wordmark: ألسُن (Alsun) — the brand -->
+    <text x="40" y="215" fill="#FFFFFF"
+          font-family="'SF Arabic Rounded','SF Arabic','Geeza Pro','Noto Naskh Arabic',system-ui,sans-serif"
+          font-weight="800" font-size="170" direction="rtl">ألسُن</text>
+
+    <!-- Subline: Arabic tagline "تعلّم الألمانية" (learn German) -->
+    <text x="40" y="268" fill="#B5B06A"
+          font-family="'SF Arabic','Geeza Pro','Noto Naskh Arabic',system-ui,sans-serif"
+          font-weight="600" font-size="26" letter-spacing="1" direction="rtl">تعلّم الألمانية</text>
+
+    <!-- Olive accent bar — visual anchor -->
+    <rect x="40" y="290" width="260" height="6" rx="3" fill="#B5B06A"/>
+  </g>
+</svg>
