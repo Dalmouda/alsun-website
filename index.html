@@ -318,8 +318,6 @@
     }
     .demo-phone {
       --phone-w: min(288px, calc(100vw - 72px));
-      --inner-w: 393px;       /* logical iPhone width — keeps app at native scale */
-      --inner-scale: calc((var(--phone-w) - 20px) / var(--inner-w));
       width: var(--phone-w);
       height: calc(var(--phone-w) * 2.08);
       background: #1C1C1E;
@@ -410,14 +408,18 @@
       border: none; background: #1C1C1E;
     }
     body.demo-open { overflow: hidden; }
+    /* Render the iframe at native iPhone width (393px) and visually shrink
+       it to fit the phone frame. Scale is hardcoded per breakpoint because
+       browsers can't reliably evaluate length/length divisions inside a
+       transform: scale() — they sometimes round to a negative ratio. */
     .demo-phone iframe {
       position: absolute;
       top: 0;
       left: 0;
-      width: var(--inner-w);
-      height: calc(var(--inner-w) * 2.08);
+      width: 393px;
+      height: 819px;
       border: none;
-      transform: scale(var(--inner-scale));
+      transform: scale(0.682);              /* 268 / 393 — desktop phone is 288 wide minus 20 border */
       transform-origin: top left;
     }
     .demo-hint {
@@ -427,6 +429,7 @@
     @media (max-width: 420px) {
       .demo-phone, .demo-phone-frame { width: 260px; }
       .demo-phone { height: 540px; }
+      .demo-phone iframe { transform: scale(0.611); } /* 240 / 393 */
     }
 
     /* ╔══════════════════════ PHONE MOCKUP (level scenes) ══════════════════════╗ */
@@ -874,7 +877,7 @@
     <div class="phone-wrap">
       <div class="phone-frame">
         <div class="phone">
-          <img class="screenshot" src="screenshots/dark/08-placement.png?v=1777027250" alt="اختبار تحديد المستوى"/>
+          <img class="screenshot" src="screenshots/dark/08-placement.png?v=1778716800" alt="اختبار تحديد المستوى"/>
         </div>
       </div>
     </div>
@@ -905,7 +908,7 @@
     <div class="phone-wrap">
       <div class="phone-frame">
         <div class="phone">
-          <img class="screenshot" src="screenshots/dark/01-home.png?v=1777027250" alt="الشاشة الرئيسيّة"/>
+          <img class="screenshot" src="screenshots/dark/01-home.png?v=1778716800" alt="الشاشة الرئيسيّة"/>
         </div>
       </div>
       
@@ -927,7 +930,7 @@
     <div class="phone-wrap">
       <div class="phone-frame">
         <div class="phone">
-          <img class="screenshot" src="screenshots/dark/02-home-journey.png?v=1777027250" alt="رحلة التعلّم"/>
+          <img class="screenshot" src="screenshots/dark/02-home-journey.png?v=1778716800" alt="رحلة التعلّم"/>
         </div>
       </div>
       
@@ -971,7 +974,7 @@
     <div class="phone-wrap">
       <div class="phone-frame">
         <div class="phone">
-          <img class="screenshot" src="screenshots/dark/03-grammar.png?v=1777027250" alt="قواعد النحو"/>
+          <img class="screenshot" src="screenshots/dark/03-grammar.png?v=1778716800" alt="قواعد النحو"/>
         </div>
       </div>
       
@@ -990,7 +993,7 @@
     <div class="phone-wrap">
       <div class="phone-frame">
         <div class="phone">
-          <img class="screenshot" src="screenshots/dark/09-pronunciation.png?v=1777027250" alt="دليل النطق"/>
+          <img class="screenshot" src="screenshots/dark/09-pronunciation.png?v=1778716800" alt="دليل النطق"/>
         </div>
       </div>
     </div>
@@ -1021,7 +1024,7 @@
     <div class="phone-wrap">
       <div class="phone-frame">
         <div class="phone">
-          <img class="screenshot" src="screenshots/dark/06-session.png?v=1777027250" alt="جلسة ذكية"/>
+          <img class="screenshot" src="screenshots/dark/06-session.png?v=1778716800" alt="جلسة ذكية"/>
         </div>
       </div>
       
@@ -1065,7 +1068,7 @@
     <div class="phone-wrap">
       <div class="phone-frame">
         <div class="phone">
-          <img class="screenshot" src="screenshots/dark/04-library.png?v=1777027250" alt="مراجعاتي"/>
+          <img class="screenshot" src="screenshots/dark/04-library.png?v=1778716800" alt="مراجعاتي"/>
         </div>
       </div>
       
@@ -1096,7 +1099,7 @@
     <div class="phone-wrap">
       <div class="phone-frame">
         <div class="phone">
-          <img class="screenshot" src="screenshots/dark/10-progress.png?v=1777027250" alt="تقدّمي — لوحة المهارات"/>
+          <img class="screenshot" src="screenshots/dark/10-progress.png?v=1778716800" alt="تقدّمي — لوحة المهارات"/>
         </div>
       </div>
     </div>
