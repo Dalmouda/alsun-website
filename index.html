@@ -316,8 +316,13 @@
     .demo-phone-frame {
       /* no filter here — filter breaks overflow:hidden clipping */
     }
-    .demo-phone {
-      --phone-w: min(288px, calc(100vw - 72px));
+    /* Higher specificity than .phone (which sets width: 288px later in this
+       file). The element carries both classes; without bumping specificity
+       the iframe shrinks to 288px and the React app overflows. The width
+       formula handles all breakpoints — 340px target, capped by viewport
+       minus the surrounding scene padding (28px each side + a small gap). */
+    .phone.demo-phone {
+      --phone-w: min(340px, calc(100vw - 64px));
       width: var(--phone-w);
       height: calc(var(--phone-w) * 2.08);
       background: #1C1C1E;
@@ -408,28 +413,23 @@
       border: none; background: #1C1C1E;
     }
     body.demo-open { overflow: hidden; }
-    /* Render the iframe at native iPhone width (393px) and visually shrink
-       it to fit the phone frame. Scale is hardcoded per breakpoint because
-       browsers can't reliably evaluate length/length divisions inside a
-       transform: scale() — they sometimes round to a negative ratio. */
+    /* Iframe fills the phone frame natively — no transform/scale gymnastics.
+       The phone width was increased to ~340px so the React app's mobile
+       layout (designed for 320–393px viewports) renders correctly inside. */
     .demo-phone iframe {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 393px;
-      height: 819px;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       border: none;
-      transform: scale(0.682);              /* 268 / 393 — desktop phone is 288 wide minus 20 border */
-      transform-origin: top left;
     }
     .demo-hint {
       font-size: 12px; font-weight: 700; color: var(--ink2);
       opacity: 0.6; letter-spacing: 0.01em;
     }
+    /* Mobile demo-phone-frame mirrors the responsive phone width above. */
     @media (max-width: 420px) {
-      .demo-phone, .demo-phone-frame { width: 260px; }
-      .demo-phone { height: 540px; }
-      .demo-phone iframe { transform: scale(0.611); } /* 240 / 393 */
+      .demo-phone-frame { width: min(340px, calc(100vw - 64px)); }
     }
 
     /* ╔══════════════════════ PHONE MOCKUP (level scenes) ══════════════════════╗ */
@@ -938,7 +938,7 @@
     </div>
     <div class="feature-panel">
       <span class="fp-kicker" style="background:var(--orangeLt); color:var(--orangeDk);"><i class="ph-fill ph-path"></i>مسار واحد واضح</span>
-      <h3>محطة بعد محطة</h3>
+      <h3>مرحلة بعد مرحلة</h3>
       <p class="fp-intro">تعرف دائماً ما الخطوة التالية. ما أنجزته خلفك، وما يأتي ينتظرك.</p>
       <ul>
         <li><i class="ph-fill ph-check-circle"></i>محطات منجزة تُظهر تقدّمك</li>
