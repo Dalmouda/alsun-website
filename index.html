@@ -318,6 +318,8 @@
     }
     .demo-phone {
       --phone-w: min(288px, calc(100vw - 72px));
+      --inner-w: 393px;       /* logical iPhone width — keeps app at native scale */
+      --inner-scale: calc((var(--phone-w) - 20px) / var(--inner-w));
       width: var(--phone-w);
       height: calc(var(--phone-w) * 2.08);
       background: #1C1C1E;
@@ -410,10 +412,13 @@
     body.demo-open { overflow: hidden; }
     .demo-phone iframe {
       position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+      top: 0;
+      left: 0;
+      width: var(--inner-w);
+      height: calc(var(--inner-w) * 2.08);
       border: none;
+      transform: scale(var(--inner-scale));
+      transform-origin: top left;
     }
     .demo-hint {
       font-size: 12px; font-weight: 700; color: var(--ink2);
