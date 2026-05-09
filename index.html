@@ -298,7 +298,9 @@
     .demo-phone-wrap {
       position: relative; z-index: 4;
       display: flex; flex-direction: column; align-items: center; gap: 14px;
-      margin-top: 8px;
+      margin: 8px auto 0;
+      width: 100%;
+      max-width: 340px;        /* hard cap; children use 100% of this */
     }
     .demo-badge {
       display: inline-flex; align-items: center; gap: 7px;
@@ -316,20 +318,25 @@
     /* Bumped specificity past .phone-frame's hardcoded 288px so the demo
        frame matches the (wider, responsive) demo phone inside it.
        Without this the phone overflows its parent and — under body
-       direction:rtl — shifts visibly left of center. */
+       direction:rtl — shifts visibly left of center.
+       Width is bound to the parent (100%) rather than 100vw, so iOS
+       Safari quirks around viewport width / safe-area / display zoom
+       can't make the phone wider than its container. */
     .phone-frame.demo-phone-frame {
-      width: min(340px, calc(100vw - 64px));
+      width: 100%;
       /* no filter here — filter breaks overflow:hidden clipping */
     }
     /* Higher specificity than .phone (which sets width: 288px later in this
        file). The element carries both classes; without bumping specificity
-       the iframe shrinks to 288px and the React app overflows. The width
-       formula handles all breakpoints — 340px target, capped by viewport
-       minus the surrounding scene padding (28px each side + a small gap). */
+       the iframe shrinks to 288px and the React app overflows.
+       100% binds to the parent so the phone always fits inside it.
+       aspect-ratio derives height from the actually-rendered width — using
+       calc(width * 2.08) doesn't work because % inside the variable resolves
+       to parent height in a height context. */
     .phone.demo-phone {
-      --phone-w: min(340px, calc(100vw - 64px));
-      width: var(--phone-w);
-      height: calc(var(--phone-w) * 2.08);
+      width: 100%;
+      aspect-ratio: 1 / 2.08;
+      height: auto;
       background: #1C1C1E;
       border-radius: clamp(28px, 8vw, 44px);
       border: 10px solid var(--ink);
