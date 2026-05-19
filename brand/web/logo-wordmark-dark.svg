@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="ألسُن — Alsun">
+  <rect width="1280" height="720" fill="#0F172A"/>
+  <text x="640" y="432" fill="#818CF8" text-anchor="middle"
+        font-family="'SF Arabic Rounded','SF Arabic','Geeza Pro','Noto Naskh Arabic',system-ui,sans-serif"
+        font-weight="800" font-size="324">ألسُن</text>
+  <text x="640" y="561.6" fill="#64748B" text-anchor="middle"
+        font-family="'Helvetica Neue','Nunito',system-ui,sans-serif"
+        font-weight="900" font-size="61" letter-spacing="11">ALSUN</text>
+</svg>

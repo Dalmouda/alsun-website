@@ -1,0 +1,27 @@
+{
+  "name": "ألسُن — Alsun",
+  "short_name": "Alsun",
+  "description": "تعلّم الألمانية بالعربية على دفعات قصيرة.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#6366F1",
+  "icons": [
+    {
+      "src": "/brand/web/android-chrome-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/brand/web/android-chrome-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/brand/web/android-chrome-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
