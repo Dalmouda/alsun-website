@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ألسُن">
   <rect width="64" height="64" rx="14" fill="#6366F1"/>
-  <text x="32" y="46" fill="#FFFFFF" text-anchor="middle"
+  <text x="32" y="44" fill="#FFFFFF" text-anchor="middle"
         font-family="'SF Arabic Rounded','SF Arabic','Geeza Pro','Noto Naskh Arabic',system-ui,sans-serif"
-        font-weight="800" font-size="44">ألسُن</text>
+        font-weight="800" font-size="40">ألسُن</text>
 </svg>
