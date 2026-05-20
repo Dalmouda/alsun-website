@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="ألسُن — Alsun">
+  <!-- Wide brand wordmark for Alsun (ألسُن).
+       Stacked layout matching the app icon: indigo Arabic mark dominant,
+       small grey letter-spaced ALSUN beneath, on a clean white surface. -->
+  <rect width="640" height="360" fill="#FFFFFF"/>
+  <text x="320" y="220" fill="#6366F1" text-anchor="middle"
+        font-family="'SF Arabic Rounded','SF Arabic','Geeza Pro','Noto Naskh Arabic',system-ui,sans-serif"
+        font-weight="800" font-size="170">ألسُن</text>
+  <text x="320" y="280" fill="#9CA3AF" text-anchor="middle"
+        font-family="'Helvetica Neue','Nunito',system-ui,sans-serif"
+        font-weight="900" font-size="32" letter-spacing="6">ALSUN</text>
+</svg>

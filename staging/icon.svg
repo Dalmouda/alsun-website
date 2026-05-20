@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="ألسُن">
+  <!-- Square app-icon for Alsun (ألسُن).
+       Stacked wordmark on a clean white ground — mirrors the home-page top bar:
+       indigo Arabic mark, grey letter-spaced ALSUN beneath. -->
+  <rect width="1024" height="1024" fill="#FFFFFF"/>
+  <text x="512" y="614" fill="#6366F1" text-anchor="middle"
+        font-family="'SF Arabic Rounded','SF Arabic','Geeza Pro','Noto Naskh Arabic',system-ui,sans-serif"
+        font-weight="800" font-size="520" direction="rtl">ألسُن</text>
+  <text x="512" y="800" fill="#9CA3AF" text-anchor="middle"
+        font-family="'Helvetica Neue','Nunito',system-ui,sans-serif"
+        font-weight="900" font-size="88" letter-spacing="14">ALSUN</text>
+</svg>
