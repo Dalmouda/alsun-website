@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#000000">
+  <title>Call in Progress</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --btn-dim: rgba(255,255,255,0.15);
+      --btn-label: rgba(255,255,255,0.55);
+    }
+
+    html, body {
+      height: 100%;
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: max(env(safe-area-inset-top), 48px);
+      padding-bottom: max(env(safe-area-inset-bottom), 24px);
+      padding-left: env(safe-area-inset-left, 0px);
+      padding-right: env(safe-area-inset-right, 0px);
+      cursor: default;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* ── Caller block ── */
+    .caller {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .status-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 4px;
+      transition: color 0.4s;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: #3a3a3c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 10px;
+      transition: opacity 0.4s;
+    }
+
+    .caller-name {
+      font-size: 36px;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+
+    .caller-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.55);
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .duration {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+      margin-top: 8px;
+      letter-spacing: 0.02em;
+      min-height: 22px;
+    }
+
+    /* ── Button grid ── */
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px 12px;
+      width: 100%;
+      max-width: 340px;
+      padding: 0 24px;
+      transition: opacity 0.4s;
+    }
+
+    .call-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: inherit;
+      cursor: default;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .call-btn .icon-wrap {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      background: var(--btn-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .call-btn svg {
+      width: 28px;
+      height: 28px;
+      fill: #fff;
+      opacity: 0.85;
+    }
+
+    .call-btn .btn-label {
+      font-size: 12px;
+      color: var(--btn-label);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── End/Answer button ── */
+    .end-btn-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .end-btn {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #ff3b30;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.35s, transform 0.1s;
+      box-shadow: 0 4px 24px rgba(255, 59, 48, 0.45);
+    }
+
+    .end-btn:active { transform: scale(0.93); }
+
+    .end-btn svg {
+      width: 32px;
+      height: 32px;
+      fill: #fff;
+    }
+
+    .end-btn-label {
+      font-size: 12px;
+      color: var(--btn-label);
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Ended state ── */
+    body.ended .avatar { opacity: 0.35; }
+    body.ended .btn-grid { opacity: 0; pointer-events: none; }
+    body.ended .end-btn { background: #34c759; box-shadow: 0 4px 24px rgba(52,199,89,0.45); }
+  </style>
+</head>
+<body>
+
+  <!-- Caller info -->
+  <div class="caller">
+    <div class="status-label" id="statusLabel">CALL IN PROGRESS</div>
+    <div class="avatar">?</div>
+    <div class="caller-name">Unknown</div>
+    <div class="caller-sub">caller id withheld</div>
+    <div class="duration" id="duration"></div>
+  </div>
+
+  <!-- Button grid -->
+  <div class="btn-grid">
+
+    <!-- Mute -->
+    <button class="call-btn" tabindex="-1">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm-6 9a6 6 0 0 0 12 0h-2a4 4 0 0 1-8 0H6zm5 6.93V21H9v2h6v-2h-2v-4.07A7 7 0 0 0 19 10h-2a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.93z"/>
+        </svg>
+      </div>
+      <span class="btn-label">mute</span>
+    </button>
+
+    <!-- Keypad -->
+    <button class="call-btn" tabindex="-1">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="6" cy="4" r="1.5"/><circle cx="12" cy="4" r="1.5"/><circle cx="18" cy="4" r="1.5"/>
+          <circle cx="6" cy="9.5" r="1.5"/><circle cx="12" cy="9.5" r="1.5"/><circle cx="18" cy="9.5" r="1.5"/>
+          <circle cx="6" cy="15" r="1.5"/><circle cx="12" cy="15" r="1.5"/><circle cx="18" cy="15" r="1.5"/>
+          <circle cx="12" cy="20.5" r="1.5"/>
+        </svg>
+      </div>
+      <span class="btn-label">keypad</span>
+    </button>
+
+    <!-- Speaker -->
+    <button class="call-btn" tabindex="-1">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+      </div>
+      <span class="btn-label">speaker</span>
+    </button>
+
+    <!-- Add call -->
+    <button class="call-btn" tabindex="-1">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 3h-2v3h-3v2h3v3h2V8h3V6h-3V3zM6.5 4C4 4 2 6 2 8.5c0 5.79 7.5 12.5 12 12.5s12-6.71 12-12.5C20 6 18 4 15.5 4c-.94 0-1.95.4-2.79 1.03l-.71.53-.71-.53C10.45 4.4 9.44 4 8.5 4H6.5zm-2.5 4.5C4 7.12 5.12 6 6.5 6h2c.5 0 1.09.22 1.68.63l1.82 1.36 1.82-1.36C14.41 6.22 15 6 15.5 6H17.5C18.88 6 20 7.12 20 8.5c0 4.5-6.5 10.5-10 10.5S0 13 0 8.5z"/>
+        </svg>
+      </div>
+      <span class="btn-label">add call</span>
+    </button>
+
+    <!-- FaceTime -->
+    <button class="call-btn" tabindex="-1">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+        </svg>
+      </div>
+      <span class="btn-label">FaceTime</span>
+    </button>
+
+    <!-- Contacts -->
+    <button class="call-btn" tabindex="-1">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+      </div>
+      <span class="btn-label">contacts</span>
+    </button>
+
+  </div>
+
+  <!-- End call -->
+  <div class="end-btn-wrap">
+    <button class="end-btn" id="endBtn" aria-label="End call">
+      <!-- Phone hang-up icon -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.69.28-.27 0-.52-.11-.7-.29L.29 13.08a.99.99 0 0 1-.29-.7c0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .27-.11.52-.29.7l-2.5 2.48c-.18.18-.43.29-.7.29-.26 0-.51-.1-.69-.28a11.27 11.27 0 0 0-2.67-1.85.996.996 0 0 1-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/>
+      </svg>
+    </button>
+    <span class="end-btn-label" id="endLabel">end</span>
+  </div>
+
+<script>
+  const BASE_SECONDS = Math.round(11 * 365.25 * 24 * 3600);
+  const el = document.getElementById('duration');
+  const statusLabel = document.getElementById('statusLabel');
+  const endBtn = document.getElementById('endBtn');
+  const endLabel = document.getElementById('endLabel');
+  const body = document.body;
+
+  let elapsed = 0;
+  let timer = null;
+  let ended = false;
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function format(totalSec) {
+    const years = 11;
+    const remaining = totalSec - Math.round(11 * 365.25 * 24 * 3600);
+    // remaining days from the 11-year mark
+    const extraDays = Math.floor(remaining / 86400);
+    const r = remaining % 86400;
+    const h = Math.floor(r / 3600);
+    const m = Math.floor((r % 3600) / 60);
+    const s = r % 60;
+    return `${years} years ${extraDays}d ${pad(h)}:${pad(m)}:${pad(s)}`;
+  }
+
+  function tick() {
+    elapsed++;
+    el.textContent = format(BASE_SECONDS + elapsed);
+  }
+
+  function startCall() {
+    ended = false;
+    elapsed = 0;
+    body.classList.remove('ended');
+    statusLabel.textContent = 'CALL IN PROGRESS';
+    endLabel.textContent = 'end';
+    el.textContent = format(BASE_SECONDS);
+    timer = setInterval(tick, 1000);
+  }
+
+  function endCall() {
+    ended = true;
+    clearInterval(timer);
+    timer = null;
+    body.classList.add('ended');
+    statusLabel.textContent = 'CALL ENDED';
+    endLabel.textContent = 'call back';
+    el.textContent = 'Duration: 11 years';
+  }
+
+  endBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (!ended) endCall();
+  });
+
+  body.addEventListener('click', function() {
+    if (ended) startCall();
+  });
+
+  // Prevent any default touch behaviors from interfering
+  document.addEventListener('touchmove', function(e) { e.preventDefault(); }, { passive: false });
+
+  startCall();
+</script>
+</body>
+</html>
