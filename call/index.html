@@ -278,6 +278,89 @@
     body.ended .avatar { opacity: 0.3; }
     body.ended .btn-grid { opacity: 0; pointer-events: none; }
     body.ended .end-btn { background: #34c759; box-shadow: 0 4px 20px rgba(52,199,89,0.4); }
+
+    /* ── Add-to-home-screen prompt ── */
+    .ath-prompt {
+      position: fixed;
+      bottom: max(env(safe-area-inset-bottom), 16px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      background: rgba(28,28,30,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 16px 20px 14px;
+      width: min(340px, calc(100vw - 32px));
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      animation: slideUp .35s cubic-bezier(.22,.9,.32,1) both;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(24px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    .ath-prompt.hidden { display: none; }
+
+    .ath-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .ath-text { flex: 1; }
+    .ath-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+    .ath-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+    .ath-close {
+      background: none; border: none;
+      color: rgba(255,255,255,0.35);
+      font-size: 20px; line-height: 1;
+      cursor: pointer; padding: 0 2px;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ath-steps {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 10px 14px;
+    }
+    .ath-steps .step {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.75);
+      font-weight: 500;
+    }
+    .ath-steps .arrow {
+      color: rgba(255,255,255,0.25);
+      font-size: 12px;
+    }
+    /* iOS share icon inline SVG */
+    .share-icon {
+      width: 16px; height: 18px;
+      fill: #007AFF;
+      flex-shrink: 0;
+    }
+    .home-icon {
+      width: 16px; height: 16px;
+      fill: rgba(255,255,255,0.75);
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
@@ -420,11 +503,57 @@
   endBtn.addEventListener('click', e => { e.stopPropagation(); if (!ended) endCall(); });
   body.addEventListener('click', () => { if (ended) startCall(); });
 
-  document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+  document.addEventListener('touchmove', function(e) {
+    if (e.target.closest('#athPrompt')) return; // allow scrolling prompt if needed
+    e.preventDefault();
+  }, { passive: false });
 
   updateClock();
   clockTimer = setInterval(updateClock, 10000);
   startCall();
+
+  // Show "Add to Home Screen" prompt only in iOS Safari, not when already standalone
+  (function() {
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isStandalone = window.navigator.standalone === true;
+    const isSafari = /safari/i.test(navigator.userAgent) && !/crios|fxios|opios/i.test(navigator.userAgent);
+    if (!isIOS || isStandalone || !isSafari) return;
+
+    const prompt = document.getElementById('athPrompt');
+    prompt.classList.remove('hidden');
+    document.getElementById('athClose').addEventListener('click', function(e) {
+      e.stopPropagation();
+      prompt.classList.add('hidden');
+    });
+  })();
 </script>
+
+  <!-- Add to Home Screen prompt (iOS Safari only) -->
+  <div class="ath-prompt hidden" id="athPrompt">
+    <div class="ath-top">
+      <div class="ath-text">
+        <div class="ath-title">Add to Home Screen</div>
+        <div class="ath-sub">For full screen with no browser bar</div>
+      </div>
+      <button class="ath-close" id="athClose">&#x2715;</button>
+    </div>
+    <div class="ath-steps">
+      <span class="step">
+        <svg class="share-icon" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 0L5 4h3v10h2V4h3L9 0zM1 8v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8h-2v12H3V8H1z"/>
+        </svg>
+        Tap Share
+      </span>
+      <span class="arrow">›</span>
+      <span class="step">
+        <svg class="home-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="18" height="18" rx="4" ry="4" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5"/>
+          <path d="M12 7v10M7 12h10" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Add to Home Screen
+      </span>
+    </div>
+  </div>
+
 </body>
 </html>
