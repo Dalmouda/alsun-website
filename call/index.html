@@ -154,8 +154,13 @@
 
     /* ════════════════════════════════
        STATUS BAR
+       Hidden in browser — iOS already shows its own.
+       Visible only when running standalone (home screen).
     ════════════════════════════════ */
     .status-bar {
+      display: none;
+    }
+    body.standalone .status-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -173,7 +178,10 @@
       font-variant-numeric: tabular-nums;
       min-width: 48px;
     }
-    .dynamic-island {
+    /* Dynamic island only renders in standalone */
+    .dynamic-island { display: none; }
+    body.standalone .dynamic-island {
+      display: block;
       position: absolute;
       top: max(env(safe-area-inset-top, 0px), 14px);
       left: 50%; transform: translate(-50%, 0);
@@ -442,6 +450,11 @@
   updateClock();
   setInterval(updateClock, 10000);
   startCall();
+
+  // ── Standalone detection ──
+  if (window.navigator.standalone === true) {
+    document.body.classList.add('standalone');
+  }
 
   // ── Install gate: show only in iOS Safari when NOT standalone ──
   (function() {
