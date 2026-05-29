@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#000000">
   <title>Call in Progress</title>
   <style>
@@ -18,361 +19,324 @@
       -webkit-font-smoothing: antialiased;
       overflow: hidden;
     }
-
     body {
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
     }
 
-    /* ── Status bar ── */
+    /* ════════════════════════════════
+       INSTALL GATE (iOS Safari only)
+    ════════════════════════════════ */
+    #gate {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding-bottom: max(env(safe-area-inset-bottom, 0px), 16px);
+    }
+    #gate.gone { display: none; }
+
+    .gate-card {
+      width: min(360px, calc(100vw - 32px));
+      background: #1c1c1e;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 28px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    .gate-icon {
+      width: 60px; height: 60px;
+      border-radius: 16px;
+      background: #2c2c2e;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gate-icon svg { width: 28px; height: 28px; fill: #007AFF; }
+
+    .gate-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+    .gate-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      line-height: 1.6;
+      margin-top: -10px;
+    }
+
+    .gate-steps {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .gate-step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: #2c2c2e;
+    }
+    .gate-step + .gate-step {
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .step-num {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: #007AFF;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-text {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.4;
+      flex: 1;
+    }
+    .step-text span {
+      color: rgba(255,255,255,0.45);
+      font-weight: 400;
+    }
+    .step-icon { flex-shrink: 0; }
+    .step-icon svg { display: block; width: 20px; height: 20px; fill: rgba(255,255,255,0.35); }
+
+    /* Bouncing arrow pointing down at the toolbar */
+    .gate-arrow-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding-bottom: 4px;
+    }
+    .gate-arrow-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .gate-arrow {
+      animation: bounce 1.2s ease-in-out infinite;
+    }
+    .gate-arrow svg { display: block; width: 28px; height: 28px; fill: #007AFF; }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(8px); }
+    }
+
+    .gate-skip {
+      background: none; border: none;
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      padding: 8px;
+      margin-top: -8px;
+    }
+
+    /* ════════════════════════════════
+       STATUS BAR
+    ════════════════════════════════ */
     .status-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: max(env(safe-area-inset-top), 14px);
+      padding-top: max(env(safe-area-inset-top, 0px), 14px);
       padding-left: 28px;
       padding-right: 22px;
-      padding-bottom: 0;
-      height: calc(max(env(safe-area-inset-top), 14px) + 26px);
+      height: calc(max(env(safe-area-inset-top, 0px), 14px) + 26px);
       flex-shrink: 0;
       position: relative;
       z-index: 10;
     }
-
     .sb-time {
-      font-size: 17px;
-      font-weight: 600;
+      font-size: 17px; font-weight: 600;
       letter-spacing: -0.02em;
       font-variant-numeric: tabular-nums;
       min-width: 48px;
     }
-
-    /* Dynamic island */
     .dynamic-island {
       position: absolute;
-      top: max(env(safe-area-inset-top), 14px);
-      left: 50%;
-      transform: translate(-50%, 0);
-      width: 120px;
-      height: 34px;
-      background: #000;
-      border-radius: 999px;
+      top: max(env(safe-area-inset-top, 0px), 14px);
+      left: 50%; transform: translate(-50%, 0);
+      width: 120px; height: 34px;
+      background: #000; border-radius: 999px;
       z-index: 20;
     }
-
     .sb-right {
-      display: flex;
-      align-items: center;
-      gap: 7px;
+      display: flex; align-items: center; gap: 7px;
     }
-
-    /* Signal bars */
     .signal {
-      display: flex;
-      align-items: flex-end;
-      gap: 2px;
-      height: 12px;
+      display: flex; align-items: flex-end; gap: 2px; height: 12px;
     }
     .signal span {
-      display: block;
-      width: 3px;
-      background: #fff;
-      border-radius: 1px;
+      display: block; width: 3px; background: #fff; border-radius: 1px;
     }
     .signal span:nth-child(1) { height: 4px; }
     .signal span:nth-child(2) { height: 6px; }
     .signal span:nth-child(3) { height: 9px; }
     .signal span:nth-child(4) { height: 12px; }
-
-    .sb-5g {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
-
-    /* WiFi */
-    .wifi svg {
-      display: block;
-      width: 16px;
-      height: 12px;
-      fill: #fff;
-    }
-
-    /* Battery */
-    .battery {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-    }
+    .sb-5g { font-size: 13px; font-weight: 600; }
+    .wifi svg { display: block; width: 16px; height: 12px; fill: #fff; }
+    .battery { display: flex; align-items: center; gap: 2px; }
     .battery-body {
-      width: 25px;
-      height: 12px;
+      width: 25px; height: 12px;
       border: 1.5px solid rgba(255,255,255,0.35);
-      border-radius: 3px;
-      padding: 2px;
-      position: relative;
+      border-radius: 3px; padding: 2px;
     }
-    .battery-fill {
-      height: 100%;
-      width: 72%;
-      background: #fff;
-      border-radius: 1.5px;
-    }
-    .battery-tip {
-      width: 2px;
-      height: 5px;
-      background: rgba(255,255,255,0.35);
-      border-radius: 0 1px 1px 0;
-    }
+    .battery-fill { height: 100%; width: 72%; background: #fff; border-radius: 1.5px; }
+    .battery-tip { width: 2px; height: 5px; background: rgba(255,255,255,0.35); border-radius: 0 1px 1px 0; }
 
-    /* ── Main content ── */
+    /* ════════════════════════════════
+       CALL SCREEN
+    ════════════════════════════════ */
     .content {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding-bottom: max(env(safe-area-inset-bottom), 28px);
+      padding-bottom: max(env(safe-area-inset-bottom, 0px), 28px);
       padding-top: 20px;
     }
-
-    /* ── Caller block ── */
     .caller {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      text-align: center;
-      padding: 0 24px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 8px;
+      text-align: center; padding: 0 24px;
     }
-
     .status-label {
-      font-size: 14px;
-      font-weight: 400;
+      font-size: 14px; font-weight: 400;
       color: rgba(255,255,255,0.6);
-      letter-spacing: 0.01em;
-      margin-bottom: 16px;
-      transition: color 0.4s;
+      margin-bottom: 16px; transition: color 0.4s;
     }
-
     .avatar {
-      width: 112px;
-      height: 112px;
-      border-radius: 50%;
+      width: 112px; height: 112px; border-radius: 50%;
       background: #3a3a3c;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 50px;
-      font-weight: 300;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 50px; font-weight: 300;
       color: rgba(255,255,255,0.45);
-      margin-bottom: 18px;
-      transition: opacity 0.4s;
+      margin-bottom: 18px; transition: opacity 0.4s;
     }
-
     .caller-name {
-      font-size: 38px;
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
+      font-size: 38px; font-weight: 300;
+      letter-spacing: -0.02em; line-height: 1.1;
     }
-
     .caller-sub {
-      font-size: 16px;
-      color: rgba(255,255,255,0.5);
-      font-weight: 400;
-      margin-top: 2px;
+      font-size: 16px; color: rgba(255,255,255,0.5);
+      font-weight: 400; margin-top: 2px;
     }
-
     .duration {
-      font-size: 15px;
-      color: rgba(255,255,255,0.5);
+      font-size: 15px; color: rgba(255,255,255,0.5);
       font-variant-numeric: tabular-nums;
       font-feature-settings: "tnum";
-      margin-top: 10px;
-      letter-spacing: 0.01em;
-      min-height: 22px;
+      margin-top: 10px; letter-spacing: 0.01em; min-height: 22px;
     }
-
-    /* ── Button grid ── */
     .btn-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px 8px;
-      width: 100%;
-      max-width: 320px;
-      padding: 0 20px;
-      transition: opacity 0.4s;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px 8px; width: 100%; max-width: 320px;
+      padding: 0 20px; transition: opacity 0.4s;
     }
-
     .call-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 9px;
-      background: none;
-      border: none;
-      color: inherit;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 9px;
+      background: none; border: none; color: inherit;
       -webkit-tap-highlight-color: transparent;
     }
-
     .call-btn .icon-wrap {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
+      width: 64px; height: 64px; border-radius: 50%;
       background: rgba(255,255,255,0.14);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
     }
-
-    .call-btn svg {
-      width: 26px;
-      height: 26px;
-      fill: #fff;
-    }
-
-    .call-btn .btn-label {
-      font-size: 12px;
-      color: rgba(255,255,255,0.6);
-      font-weight: 400;
-    }
-
-    /* ── End button ── */
+    .call-btn svg { width: 26px; height: 26px; fill: #fff; }
+    .call-btn .btn-label { font-size: 12px; color: rgba(255,255,255,0.6); font-weight: 400; }
     .end-row {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 8px;
     }
-
     .end-btn {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: #ff3b30;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
+      width: 72px; height: 72px; border-radius: 50%;
+      background: #ff3b30; border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
       transition: background 0.35s, transform 0.12s;
       box-shadow: 0 4px 20px rgba(255,59,48,0.4);
     }
     .end-btn:active { transform: scale(0.91); }
+    .end-btn svg { width: 32px; height: 32px; fill: #fff; }
+    .end-label { font-size: 12px; color: rgba(255,255,255,0.5); }
 
-    .end-btn svg {
-      width: 32px;
-      height: 32px;
-      fill: #fff;
-    }
-
-    .end-label {
-      font-size: 12px;
-      color: rgba(255,255,255,0.5);
-    }
-
-    /* ── Ended state ── */
     body.ended .avatar { opacity: 0.3; }
     body.ended .btn-grid { opacity: 0; pointer-events: none; }
     body.ended .end-btn { background: #34c759; box-shadow: 0 4px 20px rgba(52,199,89,0.4); }
-
-    /* ── Add-to-home-screen prompt ── */
-    .ath-prompt {
-      position: fixed;
-      bottom: max(env(safe-area-inset-bottom), 16px);
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 999;
-      background: rgba(28,28,30,0.95);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px;
-      padding: 16px 20px 14px;
-      width: min(340px, calc(100vw - 32px));
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      animation: slideUp .35s cubic-bezier(.22,.9,.32,1) both;
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateX(-50%) translateY(24px); }
-      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-    .ath-prompt.hidden { display: none; }
-
-    .ath-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .ath-text { flex: 1; }
-    .ath-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 3px;
-    }
-    .ath-sub {
-      font-size: 12px;
-      color: rgba(255,255,255,0.5);
-      line-height: 1.5;
-    }
-    .ath-close {
-      background: none; border: none;
-      color: rgba(255,255,255,0.35);
-      font-size: 20px; line-height: 1;
-      cursor: pointer; padding: 0 2px;
-      flex-shrink: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .ath-steps {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 12px;
-      padding: 10px 14px;
-    }
-    .ath-steps .step {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: rgba(255,255,255,0.75);
-      font-weight: 500;
-    }
-    .ath-steps .arrow {
-      color: rgba(255,255,255,0.25);
-      font-size: 12px;
-    }
-    /* iOS share icon inline SVG */
-    .share-icon {
-      width: 16px; height: 18px;
-      fill: #007AFF;
-      flex-shrink: 0;
-    }
-    .home-icon {
-      width: 16px; height: 16px;
-      fill: rgba(255,255,255,0.75);
-      flex-shrink: 0;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Status bar -->
+  <!-- ── Install gate ── -->
+  <div id="gate" class="gone">
+    <div class="gate-card">
+
+      <div class="gate-icon">
+        <!-- Phone icon -->
+        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      </div>
+
+      <div class="gate-title">Open without browser bar</div>
+      <div class="gate-sub">Two quick steps to make it full screen</div>
+
+      <div class="gate-steps">
+        <div class="gate-step">
+          <div class="step-num">1</div>
+          <div class="step-text">Tap the <strong>Share</strong> button <span>(the one at the bottom)</span></div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L8 6h3v9h2V6h3L12 2zM4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8h-2v8H6v-8H4z"/></svg>
+          </div>
+        </div>
+        <div class="gate-step">
+          <div class="step-num">2</div>
+          <div class="step-text">Tap <strong>Add to Home Screen</strong> <span>then Open</span></div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-7 3v12m-6-6h12" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="gate-arrow-wrap">
+      <div class="gate-arrow-label">Share button is here</div>
+      <div class="gate-arrow">
+        <svg viewBox="0 0 24 24"><path d="M12 4v14M5 12l7 8 7-8"/></svg>
+      </div>
+    </div>
+
+    <button class="gate-skip" id="gateSkip">continue in browser anyway</button>
+  </div>
+
+  <!-- ── Status bar ── -->
   <div class="status-bar">
     <span class="sb-time" id="sbTime"></span>
     <div class="dynamic-island"></div>
     <div class="sb-right">
-      <div class="signal">
-        <span></span><span></span><span></span><span></span>
-      </div>
+      <div class="signal"><span></span><span></span><span></span><span></span></div>
       <span class="sb-5g">5G</span>
       <div class="wifi">
         <svg viewBox="0 0 24 17" xmlns="http://www.w3.org/2000/svg">
@@ -386,9 +350,8 @@
     </div>
   </div>
 
-  <!-- Content -->
+  <!-- ── Call screen ── -->
   <div class="content">
-
     <div class="caller">
       <div class="status-label" id="statusLabel">mobile</div>
       <div class="avatar">?</div>
@@ -398,46 +361,28 @@
     </div>
 
     <div class="btn-grid">
-      <!-- Mute -->
       <button class="call-btn" tabindex="-1">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm-6 9a6 6 0 0 0 12 0h-2a4 4 0 0 1-8 0H6zm5 6.93V21H9v2h6v-2h-2v-4.07A7 7 0 0 0 19 10h-2a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.93z"/></svg>
-        </div>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm-6 9a6 6 0 0 0 12 0h-2a4 4 0 0 1-8 0H6zm5 6.93V21H9v2h6v-2h-2v-4.07A7 7 0 0 0 19 10h-2a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.93z"/></svg></div>
         <span class="btn-label">mute</span>
       </button>
-      <!-- Keypad -->
       <button class="call-btn" tabindex="-1">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24"><circle cx="6" cy="4" r="1.5"/><circle cx="12" cy="4" r="1.5"/><circle cx="18" cy="4" r="1.5"/><circle cx="6" cy="9.5" r="1.5"/><circle cx="12" cy="9.5" r="1.5"/><circle cx="18" cy="9.5" r="1.5"/><circle cx="6" cy="15" r="1.5"/><circle cx="12" cy="15" r="1.5"/><circle cx="18" cy="15" r="1.5"/><circle cx="12" cy="20.5" r="1.5"/></svg>
-        </div>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24"><circle cx="6" cy="4" r="1.5"/><circle cx="12" cy="4" r="1.5"/><circle cx="18" cy="4" r="1.5"/><circle cx="6" cy="9.5" r="1.5"/><circle cx="12" cy="9.5" r="1.5"/><circle cx="18" cy="9.5" r="1.5"/><circle cx="6" cy="15" r="1.5"/><circle cx="12" cy="15" r="1.5"/><circle cx="18" cy="15" r="1.5"/><circle cx="12" cy="20.5" r="1.5"/></svg></div>
         <span class="btn-label">keypad</span>
       </button>
-      <!-- Speaker -->
       <button class="call-btn" tabindex="-1">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-        </div>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
         <span class="btn-label">speaker</span>
       </button>
-      <!-- Add call -->
       <button class="call-btn" tabindex="-1">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M19 3h-2v3h-3v2h3v3h2V8h3V6h-3V3zM6.5 4C4 4 2 6 2 8.5c0 5.79 7.5 12.5 12 12.5s12-6.71 12-12.5C20 6 18 4 15.5 4c-.94 0-1.95.4-2.79 1.03l-.71.53-.71-.53C10.45 4.4 9.44 4 8.5 4H6.5zm-2.5 4.5C4 7.12 5.12 6 6.5 6h2c.5 0 1.09.22 1.68.63l1.82 1.36 1.82-1.36C14.41 6.22 15 6 15.5 6H17.5C18.88 6 20 7.12 20 8.5c0 4.5-6.5 10.5-10 10.5S0 13 0 8.5z"/></svg>
-        </div>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24"><path d="M19 3h-2v3h-3v2h3v3h2V8h3V6h-3V3zM6.5 4C4 4 2 6 2 8.5c0 5.79 7.5 12.5 12 12.5s12-6.71 12-12.5C20 6 18 4 15.5 4c-.94 0-1.95.4-2.79 1.03l-.71.53-.71-.53C10.45 4.4 9.44 4 8.5 4H6.5zm-2.5 4.5C4 7.12 5.12 6 6.5 6h2c.5 0 1.09.22 1.68.63l1.82 1.36 1.82-1.36C14.41 6.22 15 6 15.5 6H17.5C18.88 6 20 7.12 20 8.5c0 4.5-6.5 10.5-10 10.5S0 13 0 8.5z"/></svg></div>
         <span class="btn-label">add call</span>
       </button>
-      <!-- FaceTime -->
       <button class="call-btn" tabindex="-1">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-        </div>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg></div>
         <span class="btn-label">FaceTime</span>
       </button>
-      <!-- Contacts -->
       <button class="call-btn" tabindex="-1">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        </div>
+        <div class="icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
         <span class="btn-label">contacts</span>
       </button>
     </div>
@@ -448,10 +393,10 @@
       </button>
       <span class="end-label" id="endLabel">end</span>
     </div>
-
   </div>
 
 <script>
+  // ── Call timer ──
   const BASE_SECONDS = Math.round(11 * 365.25 * 24 * 3600);
   const durationEl  = document.getElementById('duration');
   const statusLabel = document.getElementById('statusLabel');
@@ -459,27 +404,19 @@
   const endLabel    = document.getElementById('endLabel');
   const sbTime      = document.getElementById('sbTime');
   const body        = document.body;
-
-  let elapsed = 0, timer = null, clockTimer = null, ended = false;
+  let elapsed = 0, timer = null, ended = false;
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
-  function formatDuration(totalSec) {
-    const extra = totalSec - BASE_SECONDS;
-    const days  = Math.floor(extra / 86400);
-    const r     = extra % 86400;
-    return `11 years  ${days}d ${pad(Math.floor(r/3600))}:${pad(Math.floor((r%3600)/60))}:${pad(r%60)}`;
+  function formatDuration(s) {
+    const x = s - BASE_SECONDS;
+    const d = Math.floor(x / 86400), r = x % 86400;
+    return `11 years  ${d}d ${pad(Math.floor(r/3600))}:${pad(Math.floor((r%3600)/60))}:${pad(r%60)}`;
   }
 
   function updateClock() {
-    const now = new Date();
-    let h = now.getHours(), m = now.getMinutes();
-    sbTime.textContent = `${h}:${pad(m)}`;
-  }
-
-  function tick() {
-    elapsed++;
-    durationEl.textContent = formatDuration(BASE_SECONDS + elapsed);
+    const n = new Date();
+    sbTime.textContent = `${n.getHours()}:${pad(n.getMinutes())}`;
   }
 
   function startCall() {
@@ -488,12 +425,11 @@
     statusLabel.textContent = 'mobile';
     endLabel.textContent = 'end';
     durationEl.textContent = formatDuration(BASE_SECONDS);
-    timer = setInterval(tick, 1000);
+    timer = setInterval(() => { elapsed++; durationEl.textContent = formatDuration(BASE_SECONDS + elapsed); }, 1000);
   }
 
   function endCall() {
-    ended = true;
-    clearInterval(timer); timer = null;
+    ended = true; clearInterval(timer); timer = null;
     body.classList.add('ended');
     statusLabel.textContent = 'call ended';
     endLabel.textContent = 'call back';
@@ -502,58 +438,29 @@
 
   endBtn.addEventListener('click', e => { e.stopPropagation(); if (!ended) endCall(); });
   body.addEventListener('click', () => { if (ended) startCall(); });
-
-  document.addEventListener('touchmove', function(e) {
-    if (e.target.closest('#athPrompt')) return; // allow scrolling prompt if needed
-    e.preventDefault();
-  }, { passive: false });
+  document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
 
   updateClock();
-  clockTimer = setInterval(updateClock, 10000);
+  setInterval(updateClock, 10000);
   startCall();
 
-  // Show "Add to Home Screen" prompt only in iOS Safari, not when already standalone
+  // ── Install gate: show only in iOS Safari when NOT standalone ──
   (function() {
-    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    const isStandalone = window.navigator.standalone === true;
-    const isSafari = /safari/i.test(navigator.userAgent) && !/crios|fxios|opios/i.test(navigator.userAgent);
-    if (!isIOS || isStandalone || !isSafari) return;
+    const gate   = document.getElementById('gate');
+    const skip   = document.getElementById('gateSkip');
+    const isIOS  = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const alone  = window.navigator.standalone === true;
+    const safari = /safari/i.test(navigator.userAgent) && !/crios|fxios|opios/i.test(navigator.userAgent);
 
-    const prompt = document.getElementById('athPrompt');
-    prompt.classList.remove('hidden');
-    document.getElementById('athClose').addEventListener('click', function(e) {
+    if (isIOS && !alone && safari) {
+      gate.classList.remove('gone');
+    }
+
+    skip.addEventListener('click', function(e) {
       e.stopPropagation();
-      prompt.classList.add('hidden');
+      gate.classList.add('gone');
     });
   })();
 </script>
-
-  <!-- Add to Home Screen prompt (iOS Safari only) -->
-  <div class="ath-prompt hidden" id="athPrompt">
-    <div class="ath-top">
-      <div class="ath-text">
-        <div class="ath-title">Add to Home Screen</div>
-        <div class="ath-sub">For full screen with no browser bar</div>
-      </div>
-      <button class="ath-close" id="athClose">&#x2715;</button>
-    </div>
-    <div class="ath-steps">
-      <span class="step">
-        <svg class="share-icon" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9 0L5 4h3v10h2V4h3L9 0zM1 8v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8h-2v12H3V8H1z"/>
-        </svg>
-        Tap Share
-      </span>
-      <span class="arrow">›</span>
-      <span class="step">
-        <svg class="home-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <rect x="3" y="3" width="18" height="18" rx="4" ry="4" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5"/>
-          <path d="M12 7v10M7 12h10" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-        Add to Home Screen
-      </span>
-    </div>
-  </div>
-
 </body>
 </html>
