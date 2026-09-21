@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>شروط الاستخدام — ألسُن</title>
+  <meta name="description" content="شروط استخدام تطبيق ألسُن لتعلّم اللغة الألمانية." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700;900&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:    #3B82F6;
+      --blueDk:  #1D4ED8;
+      --blueLt:  #EFF6FF;
+      --green:   #22C55E;
+      --greenLt: #F0FDF4;
+      --ink:     #111827;
+      --ink2:    #374151;
+      --ink3:    #6B7280;
+      --ink4:    #9CA3AF;
+      --surface: #FFFFFF;
+      --bg:      #F9FAFB;
+      --border:  #E5E7EB;
+      --navy:    #1A1A2E;
+      --navyDk:  #2A2A4E;
+    }
+    body {
+      font-family: 'Noto Naskh Arabic', serif;
+      background: var(--bg); color: var(--ink);
+      direction: rtl; -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.93);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-size: 22px; font-weight: 900; color: var(--ink); text-decoration: none; }
+    .nav-logo span { color: var(--blue); }
+    .nav-back {
+      display: flex; align-items: center; gap: 6px;
+      text-decoration: none; font-size: 14px; font-weight: 700;
+      color: var(--ink3); padding: 7px 14px; border-radius: 10px;
+      background: var(--bg); border: 1.5px solid var(--border);
+      transition: color .15s, border-color .15s;
+    }
+    .nav-back:hover { color: var(--blue); border-color: #BFDBFE; background: var(--blueLt); }
+    .nav-back i { font-size: 16px; }
+
+    .container { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    .page-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--blueLt); color: var(--blue);
+      border-radius: 999px; padding: 5px 14px;
+      font-size: 12px; font-weight: 900; margin-bottom: 16px;
+    }
+    .page-badge i { font-size: 14px; }
+
+    h1 { font-size: clamp(26px,5vw,36px); font-weight: 900; color: var(--ink); margin-bottom: 8px; line-height: 1.3; }
+    .meta { font-size: 13px; color: var(--ink4); margin-bottom: 36px; }
+
+    /* Lang switcher */
+    .lang-tabs { display: flex; gap: 8px; margin-bottom: 28px; }
+    .lang-tab {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 18px; border-radius: 10px; font-size: 14px; font-weight: 700;
+      cursor: pointer; border: 1.5px solid var(--border);
+      background: var(--surface); color: var(--ink3); transition: all .15s;
+      font-family: 'Noto Naskh Arabic', serif;
+    }
+    .lang-tab i { font-size: 15px; }
+    .lang-tab.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .lang-content { display: none; }
+    .lang-content.active { display: block; }
+
+    /* Cards */
+    .sc {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 22px; margin-bottom: 14px;
+    }
+    .sc h2 {
+      font-size: 16px; font-weight: 900; color: var(--ink);
+      margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+    }
+    .sc-icon {
+      width: 30px; height: 30px; border-radius: 8px; background: var(--blueLt);
+      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .sc-icon i { font-size: 16px; color: var(--blue); }
+    .sc p { font-size: 14px; color: var(--ink2); line-height: 1.8; margin-bottom: 10px; }
+    .sc p:last-child { margin-bottom: 0; }
+    .sc ul { padding-right: 20px; margin-top: 6px; }
+    .sc ul li { font-size: 14px; color: var(--ink2); line-height: 1.8; margin-bottom: 3px; }
+
+    /* Info / warning boxes */
+    .info-box {
+      display: flex; align-items: flex-start; gap: 10px;
+      border-radius: 12px; padding: 13px 15px; margin-top: 12px;
+      font-size: 13px; font-weight: 700; line-height: 1.6;
+    }
+    .info-box i { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+    .info-box.green { background: var(--greenLt); color: #15803D; border: 1.5px solid #BBF7D0; }
+    .info-box.blue  { background: var(--blueLt);  color: var(--blueDk); border: 1.5px solid #BFDBFE; }
+    .info-box.red   { background: #FEF2F2; color: #B91C1C; border: 1.5px solid #FECACA; }
+
+    /* Contact */
+    .contact-card {
+      background: linear-gradient(135deg, var(--navy), var(--navyDk));
+      border-radius: 16px; padding: 24px; margin-top: 16px;
+    }
+    .contact-card h2 { color: #fff; font-size: 17px; font-weight: 900; margin-bottom: 8px; }
+    .contact-card p { color: rgba(255,255,255,.55); font-size: 14px; line-height: 1.7; margin-bottom: 18px; }
+    .contact-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blue); color: #fff; border-radius: 12px;
+      padding: 10px 18px; font-size: 14px; font-weight: 900;
+      text-decoration: none; transition: background .15s;
+    }
+    .contact-btn:hover { background: var(--blueDk); }
+    .contact-btn i { font-size: 16px; }
+
+    footer {
+      max-width: 760px; margin: 0 auto;
+      padding: 24px 24px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+      border-top: 1px solid var(--border);
+    }
+    footer a { text-decoration: none; font-size: 13px; font-weight: 700; color: var(--ink3); }
+    footer a:hover { color: var(--blue); }
+    .footer-copy { font-size: 12px; color: var(--ink4); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">أل<span>سُن</span></a>
+  <a href="index.html" class="nav-back"><i class="ph-bold ph-arrow-left"></i> الرئيسية</a>
+</nav>
+
+<div class="container">
+  <div class="page-badge"><i class="ph-bold ph-file-text"></i> الشروط</div>
+  <h1>شروط الاستخدام</h1>
+  <p class="meta">آخر تحديث: ٢١ سبتمبر ٢٠٢٦ — سارية على تطبيق ألسُن (iOS)</p>
+
+  <div class="lang-tabs">
+    <button class="lang-tab active" onclick="switchLang('ar',this)"><i class="ph-bold ph-translate"></i>العربية</button>
+    <button class="lang-tab" onclick="switchLang('en',this)"><i class="ph-bold ph-globe"></i>English</button>
+  </div>
+
+  <!-- ══ ARABIC ══ -->
+  <div id="lang-ar" class="lang-content active" dir="rtl">
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-hand-waving"></i></span> القبول والنطاق</h2>
+      <p>تنظّم هذه الشروط استخدامك تطبيق <strong>ألسُن</strong> وموقعه (نسميه «الخدمة»). بإنشاء حساب أو باستخدام التطبيق فأنت توافق عليها. إن لم توافق فلا تستخدم الخدمة. تُكمّلها <a href="privacy.html">سياسة الخصوصية</a>.</p>
+      <p>يخضع تثبيت التطبيق من App Store أيضاً لاتفاقية ترخيص المستخدم النهائي القياسية من Apple.</p>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-user-circle"></i></span> الأهلية والحساب</h2>
+      <ul>
+        <li>يجب ألا يقلّ عمرك عن ١٦ سنة.</li>
+        <li>تقدّم معلومات صحيحة عند التسجيل، وتحافظ على سرّية بيانات دخولك، وتتحمّل ما يجري عبر حسابك.</li>
+        <li>الحساب شخصي، ولا يجوز مشاركته أو نقله.</li>
+      </ul>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-key"></i></span> رموز الوصول</h2>
+      <p>قد نمنحك رمز وصول لفتح أجزاء من الخدمة، مثل المستويات المتقدمة والمحادثات الموقفية والتمارين الإضافية.</p>
+      <ul>
+        <li>الرمز مخصّص لك أنت، ومرتبط بحسابك وبجهاز واحد، ولا يجوز مشاركته أو بيعه أو نشره.</li>
+        <li>عند استعمال الرمز يُسجَّل مع حسابك ومعرّف مموَّه لجهازك، لنتحقق من أنه لا يُستخدم إلا كما هو مسموح.</li>
+        <li>يجوز لنا تعطيل أي رمز تبيّن أنه شورك أو استُخدم على أكثر من جهاز أو خالف هذه الشروط. إن غيّرت جهازك فراسلنا لننقل الوصول.</li>
+        <li>الرمز مجاني ما لم نخبرك بغير ذلك صراحةً داخل التطبيق. لا تدفع لأي شخص مقابل رمز.</li>
+      </ul>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-check-circle"></i></span> الاستخدام المقبول</h2>
+      <p>لا يجوز لك:</p>
+      <ul>
+        <li>نسخ محتوى الخدمة أو استخراجه آلياً أو إعادة نشره أو بيعه، أو تفكيك التطبيق أو الالتفاف على قيوده.</li>
+        <li>مشاركة رمز أو حساب مع غيرك، أو محاولة الدخول إلى حسابات الآخرين أو بياناتهم.</li>
+        <li>تحميل الخادم فوق طاقته، أو محاولة تعطيل الخدمة، أو استخدامها لغرض غير مشروع.</li>
+        <li>إرسال محتوى مسيء أو غير قانوني في تمارين الكتابة أو الملاحظات.</li>
+      </ul>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-copyright"></i></span> الملكية الفكرية</h2>
+      <p>الدروس والتمارين والمحادثات والشروح والتصميم والعلامة التجارية ملك لفريق ألسُن أو مرخّصة لنا، وهي محميّة بحقوق المؤلف. نمنحك ترخيصاً محدوداً شخصياً غير حصري وغير قابل للنقل لاستخدام الخدمة لتعلّمك الشخصي فقط.</p>
+      <p>ما تكتبه أنت يبقى لك، وتمنحنا حقاً محدوداً في معالجته لتشغيل الخدمة (مثل تقييم إجابتك) كما توضّح سياسة الخصوصية.</p>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-warning"></i></span> طبيعة المحتوى</h2>
+      <ul>
+        <li>الخدمة تعليمية لتعلّم اللغة. <strong>مواقف مثل مكتب الهجرة والسكن والعمل والصحة هي تدريب لغوي، وليست استشارة قانونية أو طبية أو إدارية.</strong> للإجراءات الرسمية ارجع إلى الجهة المختصة أو مستشار مؤهّل.</li>
+        <li>نبذل جهدنا لنكون دقيقين، لكن قد توجد أخطاء أو تتغيّر القواعد والإجراءات مع الزمن.</li>
+        <li>بعض الأمثلة والتقييمات تُولَّد بالذكاء الاصطناعي وقد تخطئ. تحقّق منها عند الأمور المهمة.</li>
+      </ul>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-cloud"></i></span> توفّر الخدمة وتغييرها</h2>
+      <p>نسعى لتشغيل الخدمة باستمرار، لكن لا نضمن عملها دون انقطاع. قد نغيّر ميزات أو نضيف أخرى أو نوقف بعضها. الخدمة الأساسية مجانية حالياً، وإن أضفنا ميزات مدفوعة فسنوضّح سعرها وشروطها داخل التطبيق قبل أي دفع.</p>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-trash"></i></span> الإنهاء</h2>
+      <p>يمكنك حذف حسابك في أي وقت من الإعدادات. يجوز لنا تعليق حسابك أو إنهاؤه إذا خالفت هذه الشروط، وسنبلغك حيثما أمكن. تبقى الأحكام التي بطبيعتها تستمر بعد الإنهاء، مثل الملكية الفكرية وحدود المسؤولية.</p>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-scales"></i></span> حدود المسؤولية</h2>
+      <p>تُقدَّم الخدمة «كما هي». بالقدر الذي يسمح به القانون، لا نتحمّل مسؤولية عن أضرار غير مباشرة أو عن قرارات اتخذتها اعتماداً على محتوى تعليمي. لا يقيّد هذا مسؤوليتنا عن الأضرار التي لا يجوز قانوناً تقييدها، مثل الضرر الناتج عن تعمّد أو إهمال جسيم أو الإضرار بالحياة أو الجسد أو الصحة، ولا حقوقك القانونية كمستهلك.</p>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-gavel"></i></span> القانون المطبّق</h2>
+      <p>تخضع هذه الشروط للقانون الألماني، مع بقاء حقوقك الإلزامية كمستهلك وفق قانون بلد إقامتك.</p>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-arrow-clockwise"></i></span> تعديل الشروط</h2>
+      <p>قد نحدّث هذه الشروط. سنُعلمك بالتغييرات الجوهرية داخل التطبيق قبل سريانها، واستمرارك في الاستخدام بعدها يعني موافقتك عليها.</p>
+    </div>
+
+  </div><!-- /lang-ar -->
+
+  <!-- ══ ENGLISH ══ -->
+  <div id="lang-en" class="lang-content" dir="ltr" style="font-family:'Nunito',sans-serif;">
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-hand-waving"></i></span> Acceptance and Scope</h2>
+      <p>These terms govern your use of the <strong>Alsun</strong> app and website (the "Service"). By creating an account or using the App you agree to them. If you do not agree, do not use the Service. They are complemented by our <a href="privacy.html">Privacy Policy</a>.</p>
+      <p>Installing the App from the App Store is also subject to Apple's standard end-user license agreement.</p>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-user-circle"></i></span> Eligibility and Account</h2>
+      <ul>
+        <li>You must be at least 16 years old.</li>
+        <li>You give accurate information when registering, keep your sign-in details confidential and are responsible for activity under your account.</li>
+        <li>Your account is personal and may not be shared or transferred.</li>
+      </ul>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-key"></i></span> Access Codes</h2>
+      <p>We may give you an access code that unlocks parts of the Service, such as advanced levels, situational conversations and extra exercises.</p>
+      <ul>
+        <li>A code is issued to you personally, is tied to your account and to one device, and may not be shared, sold or published.</li>
+        <li>When you redeem a code it is recorded against your account and a pseudonymous identifier of your device, so we can check it is only used as allowed.</li>
+        <li>We may disable any code that has been shared, used on more than one device or used in breach of these terms. If you change device, contact us and we will move your access.</li>
+        <li>Codes are free unless we expressly tell you otherwise in the App. Do not pay anyone for a code.</li>
+      </ul>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-check-circle"></i></span> Acceptable Use</h2>
+      <p>You may not:</p>
+      <ul>
+        <li>Copy, scrape, republish or sell Service content, decompile the App or circumvent its restrictions.</li>
+        <li>Share a code or account with anyone else, or try to access other people's accounts or data.</li>
+        <li>Overload the servers, try to disrupt the Service or use it for unlawful purposes.</li>
+        <li>Submit abusive or unlawful content in writing exercises or feedback.</li>
+      </ul>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-copyright"></i></span> Intellectual Property</h2>
+      <p>Lessons, exercises, conversations, explanations, design and branding belong to the Alsun team or are licensed to us and are protected by copyright. We grant you a limited, personal, non-exclusive, non-transferable licence to use the Service for your own learning only.</p>
+      <p>What you write remains yours; you give us a limited right to process it to run the Service (for example, to assess your answer), as described in the Privacy Policy.</p>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-warning"></i></span> Nature of the Content</h2>
+      <ul>
+        <li>The Service is for language learning. <strong>Situations such as the immigration office, housing, work and health are language practice, not legal, medical or administrative advice.</strong> For official procedures, consult the competent authority or a qualified adviser.</li>
+        <li>We do our best to be accurate, but errors may exist and rules and procedures change over time.</li>
+        <li>Some examples and assessments are generated by AI and may be wrong. Verify anything important.</li>
+      </ul>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-cloud"></i></span> Availability and Changes</h2>
+      <p>We aim to keep the Service running but do not guarantee uninterrupted operation. We may change, add or withdraw features. The core Service is currently free; if we add paid features we will show their price and terms in the App before any payment.</p>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-trash"></i></span> Termination</h2>
+      <p>You can delete your account at any time in Settings. We may suspend or end your account if you breach these terms, and will tell you where possible. Provisions that by their nature continue after termination, such as intellectual property and limits of liability, survive.</p>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-scales"></i></span> Limitation of Liability</h2>
+      <p>The Service is provided "as is". To the extent permitted by law, we are not liable for indirect damages or for decisions you make relying on learning content. This does not limit our liability where it cannot lawfully be limited, such as for intent or gross negligence or injury to life, body or health, nor your statutory rights as a consumer.</p>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-gavel"></i></span> Governing Law</h2>
+      <p>These terms are governed by German law, without affecting your mandatory consumer rights under the law of your country of residence.</p>
+    </div>
+
+    <div class="sc">
+      <h2><span class="sc-icon"><i class="ph-bold ph-arrow-clockwise"></i></span> Changes to These Terms</h2>
+      <p>We may update these terms. We will announce material changes in the App before they take effect; continuing to use the Service afterwards means you accept them.</p>
+    </div>
+
+  </div><!-- /lang-en -->
+
+  <!-- CONTACT -->
+  <div class="contact-card">
+    <h2>تواصل معنا — Contact Us</h2>
+    <p>لأي استفسار بشأن هذه الشروط أو رموز الوصول<br/>For questions about these terms or access codes</p>
+    <a href="mailto:support@alsunapp.com" class="contact-btn">
+      <i class="ph-bold ph-envelope"></i>
+      support@alsunapp.com
+    </a>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html">الرئيسية</a>
+  <a href="privacy.html">سياسة الخصوصية</a>
+  <span class="footer-copy">© 2026 ألسُن. جميع الحقوق محفوظة.</span>
+</footer>
+
+<script>
+  function switchLang(lang, btn) {
+    document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.lang-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('lang-' + lang).classList.add('active');
+    btn.classList.add('active');
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  }
+</script>
+</body>
+</html>
