@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<script>if (/[#&]type=recovery(&|$)/.test(location.hash)) { location.replace("reset-password.html" + location.hash); }</script>
+<script>(function(){var h=location.hash;if(/[#&]type=recovery(&|$)/.test(h)){location.replace("reset-password.html"+h);}else if(/[#&]type=(signup|email_change|invite)(&|$)/.test(h)||/[#&]error_code=/.test(h)){location.replace("email-confirmed.html"+h);}})();</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ألسُن — الألمانية بالعربية</title>

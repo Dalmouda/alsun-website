@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>تأكيد البريد الإلكتروني — ألسُن</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&family=Nunito:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#0F172A; --card:#1E293B; --line:#334155; --ink:#F8FAFC; --ink2:#94A3B8; --indigo:#6366F1; --green:#4ADE80; --red:#F87171; }
+    body { min-height: 100vh; background: var(--bg); color: var(--ink); font-family: 'Noto Naskh Arabic', serif;
+      display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .box { width: 100%; max-width: 420px; }
+    .logo { text-align: center; margin-bottom: 26px; }
+    .logo img { width: 150px; height: auto; display: block; margin: 0 auto 6px; }
+    .logo .latin { font-family: 'Nunito', sans-serif; font-weight: 900; letter-spacing: .4em; color: var(--ink2); font-size: 14px; padding-inline-start: .4em; }
+    h1 { font-size: 22px; text-align: center; margin-bottom: 6px; }
+    .sub { text-align: center; color: var(--ink2); font-size: 15px; line-height: 1.8; margin-bottom: 20px; }
+    label { display: block; font-size: 14px; color: var(--ink2); margin: 14px 0 6px; }
+    input { width: 100%; padding: 15px 16px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink);
+      font-size: 17px; font-family: 'Nunito', sans-serif; direction: ltr; text-align: left; outline: none; }
+    input:focus { border-color: var(--indigo); }
+    button { width: 100%; margin-top: 20px; padding: 16px; border: none; border-radius: 14px; background: var(--indigo); color: #fff;
+      font-size: 17px; font-weight: 700; font-family: 'Noto Naskh Arabic', serif; cursor: pointer; }
+    button:disabled { opacity: .55; cursor: default; }
+    .msg { margin-top: 16px; padding: 12px 14px; border-radius: 12px; font-size: 15px; line-height: 1.8; display: none; }
+    .msg.err { display: block; background: rgba(248,113,113,.12); color: var(--red); border: 1px solid rgba(248,113,113,.35); }
+    .msg.ok  { display: block; background: rgba(74,222,128,.12); color: var(--green); border: 1px solid rgba(74,222,128,.35); }
+    .note { margin-top: 22px; text-align: center; color: var(--ink2); font-size: 14px; line-height: 1.8; }
+    .note a { color: #A5B4FC; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="logo">
+      <img src="logo-ar-mark-transparent.png" alt="ألسُن" />
+      <div class="latin">ALSUN</div>
+    </div>
+
+    <div id="ok" hidden>
+      <h1>تم تأكيد بريدك الإلكتروني</h1>
+      <p class="sub">حسابك جاهز. افتح تطبيق ألسُن وسجّل الدخول لتبدأ التعلّم.</p>
+    </div>
+
+    <div id="bad" hidden>
+      <h1>الرابط غير صالح</h1>
+      <p class="sub">هذا الرابط منتهي الصلاحية أو استُعمل من قبل. إن كان بريدك قد أُكّد فافتح التطبيق وسجّل الدخول، وإلا فاطلب رسالة جديدة من شاشة «أكّد بريدك» في التطبيق.</p>
+    </div>
+
+    <p class="note">تحتاج مساعدة؟ <a href="mailto:support@alsunapp.com">support@alsunapp.com</a></p>
+  </div>
+
+  <script>
+    // Supabase confirms the address on its own server, then sends the browser here. Success: #access_token=...&type=signup. Failure: #error=...
+    // The token is never used or stored here; it is removed from the address bar right away.
+    var h = location.hash || "";
+    var failed = /[#&](error|error_code|error_description)=/.test(h);
+    var okLink = !failed && /[#&]type=(signup|email_change|invite)(&|$)/.test(h);
+    document.getElementById(okLink ? "ok" : "bad").hidden = false;
+    if (h) history.replaceState(null, "", location.pathname);
+  </script>
+</body>
+</html>
